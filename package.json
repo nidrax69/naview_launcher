@@ -1,0 +1,25 @@
+{
+  "name": "naview-launcher",
+  "version": "1.0.0",
+  "description": "Naview-Launcher",
+  "main": "main.js",
+  "dependencies": {
+    "angular": "^1.5.6",
+    "pretty-bytes": "^2.0.1",
+    "wiredep": "^4.0.0"
+  },
+  "devDependencies": {
+    "electron": "^1.4.13",
+    "electron-connect": "^0.6.1",
+    "electron-packager": "^8.3.0",
+    "electron-prebuilt": "^0.35.2",
+    "gulp": "^3.9.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-run": "^1.7.1"
+  },
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

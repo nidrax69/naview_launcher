@@ -1,0 +1,52 @@
+const electron = require('electron')
+const {app, BrowserWindow} = electron
+
+// Keep a global reference of the window object, if you don't, the window will
+// be closed automatically when the JavaScript object is garbage collected.
+var mainWindow = null;
+var client = require('electron-connect').client;
+
+// Quit when all windows are closed.
+app.on('window-all-closed', function() {
+  // On OS X it is common for applications and their menu bar
+  // to stay active until the user quits explicitly with Cmd + Q
+  if (process.platform != 'darwin') {
+    app.quit();
+  }
+});
+
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+app.on('ready', function() {
+  const {width, height} = electron.screen.getPrimaryDisplay().workAreaSize;
+  // Create the browser window.
+  var width_final = Math.floor(width / 1.2);
+  var height_final = Math.floor(height / 1.2);
+  console.log(width_final);
+  console.log(height_final);
+  mainWindow = new BrowserWindow(
+    {
+      width: width_final,
+      height: height_final,
+      resizable: false,
+      fullscreenable: false,
+      titleBarStyle: 'hidden'
+    });
+
+  // and load the index.html of the app.
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+
+  // Connect to server process
+  client.create(mainWindow);
+
+  // Uncomment to use Chrome developer tools
+  // mainWindow.webContents.openDevTools({detach:false});
+
+  // Emitted when the window is closed.
+  mainWindow.on('closed', function() {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    mainWindow = null;
+  });
+});

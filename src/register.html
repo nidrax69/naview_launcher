@@ -1,0 +1,46 @@
+<div class="row h100">
+  <div class="col-sm-9 h100 background-img ">
+
+  </div>
+  <div class="col-sm-3 h100">
+    <div class="row">
+      <div class="login-form h100 col-sm-10 col-sm-push-1 register">
+        <div class="row title">
+          <div class="col-xs-12 text-center"><h1>Register</h1></div>
+        </div>
+        <div class="form-group">
+          <label for="Name">Name</label>
+          <input type="text" class="form-control form-login" ng-model="user.name">
+        </div>
+        <div class="form-group">
+          <label for="Name">Surname</label>
+          <input type="text" class="form-control form-login"  ng-model="user.surname">
+        </div>
+        <div class="form-group">
+          <label for="Name">E-mail</label>
+          <input type="text" class="form-control form-login"  ng-model="user.email">
+        </div>
+        <div class="form-group">
+          <label for="Name">Password</label>
+          <input type="password" class="form-control form-login"  ng-model="user.password">
+        </div>
+        <div class="form-group">
+          <label for="password">Confirm Password</label>
+          <input type="password" class="form-control form-login"  ng-model="user.confirm_password">
+        </div>
+        <div class="form-group">
+          <label for="password">Username</label>
+          <input type="text" class="form-control form-login"  ng-model="user.username">
+        </div>
+
+        <div class="espacement"></div>
+        <button type="button" class="log-btn" ng-click="reg()">
+          {{status}}
+          <img ng-hide="!wait" src="./images/default.svg" alt="waiting">
+        </button>
+        <div class="espacement"></div>
+        <a type="button" class="text-center" href="#" ng-click="locate()">Back to login</a>
+      </div>
+    </div>
+  </div>
+</div>
