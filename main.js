@@ -5,6 +5,7 @@ const {app, BrowserWindow} = electron
 // be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
 var client = require('electron-connect').client;
+const {ipcMain} = require('electron');
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
@@ -22,19 +23,19 @@ app.on('ready', function() {
   // Create the browser window.
   var width_final = Math.floor(width / 1.2);
   var height_final = Math.floor(height / 1.2);
-  console.log(width_final);
-  console.log(height_final);
+
   mainWindow = new BrowserWindow(
-    {
-      width: width_final,
-      height: height_final,
-      resizable: false,
-      fullscreenable: false,
-      titleBarStyle: 'hidden'
-    });
+  {
+    width: width_final,
+    height: height_final,
+    resizable: false,
+    fullscreenable: false,
+    titleBarStyle: 'hidden'
+  });
 
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/index.html');
+
 
   // Connect to server process
   client.create(mainWindow);
