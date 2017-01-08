@@ -20,17 +20,15 @@
           <input type="password" class="form-control form-login" placeholder="Password" id="Password" ng-model="password">
           <i class="fa fa-lock"></i>
         </div>
-        <span class="alert">Invalid Credentials</span>
-        <a class="link" href="#">Lost your password?</a>
         <button type="button" class="log-btn" ng-click="log()">
           {{status}}
           <img ng-hide="!wait" src="./images/default.svg" alt="waiting">
         </button>
         <div class="espacement"></div>
-        <span class="white col-sm-12 text-center">{{error}}</span>
-        <div class="espacement"></div>
-        <div class="espacement"></div>
         <a class="notRegister" href="#!/register">Not registered ?</a>
+        <span class="alert col-sm-12 text-center">{{response}}</span>
+        <a class="link" ng-if="error" href="#">Lost your password ?</a>
+        <div class="espacement"></div>
       </div>
     </div>
   </div>

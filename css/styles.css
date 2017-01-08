@@ -130,6 +130,7 @@ h1 {
 .notRegister {
   float: right;
   cursor: pointer;
+  margin-bottom: 15px;
 }
 
 .link {
@@ -137,7 +138,6 @@ h1 {
   color: #C6C6C6;
   float: right;
   font-size: 12px;
-  margin-bottom: 15px;
   cursor: pointer;
 }
 .link:hover {
@@ -146,7 +146,6 @@ h1 {
 }
 
 .alert {
-  display: none;
   font-size: 12px;
   color: #f00;
   float: left;
