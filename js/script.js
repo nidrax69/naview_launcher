@@ -23,8 +23,21 @@ angular.module('naview', [
     controller: 'RegisterController',
     controllerAs: 'register'
   })
+  .when('/homepage', {
+    templateUrl: './src/homepage.html',
+    controller: 'HomePageController',
+    controllerAs: 'homepage'
+  })
   .otherwise({
     redirectTo: '/'
   });
 
-}]);
+}]).run( function($rootScope, $location) {
+   $rootScope.$watch(function() {
+      return $location.path();
+    },
+    function(a){
+      console.log('url has changed: ' + a);
+      // show loading div, etc...
+    });
+});

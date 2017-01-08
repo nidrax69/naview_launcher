@@ -151,36 +151,85 @@ h1 {
   float: left;
 }
 
-@-moz-keyframes wrong-log {
+.form-control.ng-invalid-required.ng-touched {
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+}
+
+.form-login.ng-submitted > .form-group > .form-control.ng-invalid-required + .fa {
+  -webkit-animation: wrong-log-fa 0.5s; /* Safari 4.0 - 8.0 */
+  animation: wrong-log-fa 0.5s;
+}
+
+.form-login.ng-submitted > .form-group > .form-control.ng-invalid-required {
+  position: relative;
+  -webkit-animation: wrong-log 0.5s; /* Safari 4.0 - 8.0 */
+  animation: wrong-log 0.5s;
+}
+
+@-moz-keyframes wrong-log-fa {
   0%, 100% {
-    left: 0px;
+    right: 15px;
   }
   20% , 60% {
-    left: 15px;
+    right: 20px;
   }
   40% , 80% {
-    left: -15px;
+    right: 10px;
+  }
+}
+@-webkit-keyframes wrong-log-fa {
+  0%, 100% {
+    right: 15px;
+  }
+  20% , 60% {
+    right: 20px;
+  }
+  40% , 80% {
+    right: 10px;
+  }
+}
+@keyframes wrong-log-fa {
+  0%, 100% {
+    right: 15px;
+  }
+  20% , 60% {
+    right: 20px;
+  }
+  40% , 80% {
+    right: 10px;
+  }
+}
+
+@-moz-keyframes wrong-log {
+  0%, 100% {
+    right: 0px;
+  }
+  20% , 60% {
+    right: 10px;
+  }
+  40% , 80% {
+    right: -10px;
   }
 }
 @-webkit-keyframes wrong-log {
   0%, 100% {
-    left: 0px;
+    right: 0px;
   }
   20% , 60% {
-    left: 15px;
+    right: 10px;
   }
   40% , 80% {
-    left: -15px;
+    right: -10px;
   }
 }
 @keyframes wrong-log {
   0%, 100% {
-    left: 0px;
+    right: 0px;
   }
   20% , 60% {
-    left: 15px;
+    right: 10px;
   }
   40% , 80% {
-    left: -15px;
+    right: -10px;
   }
 }

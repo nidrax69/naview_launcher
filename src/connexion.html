@@ -12,18 +12,20 @@
           </div>
         </div>
         <div class="espacement"></div>
-        <div class="form-group">
-          <input type="text" class="form-control form-login" placeholder="Username" id="UserName" ng-model="username">
-          <i class="fa fa-user"></i>
-        </div>
-        <div class="form-group log-status">
-          <input type="password" class="form-control form-login" placeholder="Password" id="Password" ng-model="password">
-          <i class="fa fa-lock"></i>
-        </div>
-        <button type="button" class="log-btn" ng-click="log()">
-          {{status}}
-          <img ng-hide="!wait" src="./images/default.svg" alt="waiting">
-        </button>
+        <form name="loginform" class="form-login" novalidate ng-submit="loginform.$valid && log()">
+          <div class="form-group">
+            <input type="text" class="form-control form-login" placeholder="Username" required="" id="UserName" ng-model="username">
+            <i class="fa fa-user"></i>
+          </div>
+          <div class="form-group log-status">
+            <input type="password" class="form-control form-login" placeholder="Password" required="" id="Password" ng-model="password">
+            <i class="fa fa-lock"></i>
+          </div>
+          <button type="submit" class="log-btn">
+            {{status}}
+            <img ng-hide="!wait" src="./images/default.svg" alt="waiting">
+          </button>
+        </form>
         <div class="espacement"></div>
         <a class="notRegister" href="#!/register">Not registered ?</a>
         <span class="alert col-sm-12 text-center">{{response}}</span>
