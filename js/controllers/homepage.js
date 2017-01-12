@@ -10,7 +10,9 @@
 var app = angular.module('naview');
 
 function HomePageController($scope, $http, API, $location) {
-
+  $scope.logout = function () {
+    $location.url("/");
+  };
 };
 
-app.controller('HomePageController', ['$scope', '$http', 'API', '$location' , ConnectController]);
+app.controller('HomePageController', ['$scope', '$http', 'API', '$location' , HomePageController]);
