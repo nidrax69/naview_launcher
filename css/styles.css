@@ -217,8 +217,13 @@ h1 {
   box-shadow: 1px 1px 20px 10px #333333;
 }
 
-.menu-title {
+.square:hover + .fear {
+  opacity: 1;
+  transition: 0.3s all;
+}
 
+.square + .fear {
+  opacity: 0;
 }
 
 .fear {
