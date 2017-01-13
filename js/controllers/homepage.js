@@ -13,6 +13,9 @@ function HomePageController($scope, $http, API, $location) {
   $scope.logout = function () {
     $location.url("/");
   };
+  $scope.settings = function () {
+    $location.url("/settings");
+  };
 };
 
 app.controller('HomePageController', ['$scope', '$http', 'API', '$location' , HomePageController]);

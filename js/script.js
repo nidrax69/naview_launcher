@@ -28,6 +28,11 @@ angular.module('naview', [
     controller: 'HomePageController',
     controllerAs: 'homepage'
   })
+  .when('/settings', {
+    templateUrl: './src/settings.html',
+    controller: 'SettingsController',
+    controllerAs: 'settings'
+  })
   .otherwise({
     redirectTo: '/'
   });
