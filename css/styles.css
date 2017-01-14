@@ -32,6 +32,23 @@ h1 {
   font-size: 30px;
 }
 
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+/* applies to GIF and PNG images; avoids blurry edges */
+img[src$=".gif"], img[src$=".png"] {
+    image-rendering: -moz-crisp-edges;         /* Firefox */
+    image-rendering:   -o-crisp-edges;         /* Opera */
+    image-rendering: -webkit-optimize-contrast;/* Webkit (non-standard naming) */
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;  /* IE (non-standard property) */
+}
+
 .form-control:focus, .form-control:focus + .fa {
   border-color: #009aed;
   color: #ccc;
@@ -217,14 +234,6 @@ h1 {
   box-shadow: 1px 1px 20px 10px #333333;
 }
 
-.square:hover + .fear {
-  opacity: 1;
-  transition: 0.3s all;
-}
-
-.square + .fear {
-  opacity: 0;
-}
 
 .fear {
   padding-top: 10px;
@@ -242,11 +251,21 @@ h1 {
   background-position: center;
 }
 
+.profile:hover {
+  animation-duration: 0.5s;
+  animation-name: change-width;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
 .settings {
   background-image: url("../images/homepage/settings.png");
   background-size : 70% 70%;
   background-repeat: no-repeat;
   background-position: center;
+  height: 40px;
+  width: 40px;
+  float: left;
 }
 
 .logout {
@@ -254,6 +273,14 @@ h1 {
   background-size : 70% 70%;
   background-repeat: no-repeat;
   background-position: center;
+  height: 40px;
+  width: 40px;
+  float: left;
+}
+
+.logout:hover, .settings:hover {
+  background-color: #333;
+  border-radius: 50%;
 }
 
 .room {
@@ -263,8 +290,41 @@ h1 {
   background-position: center;
 }
 
+.room:hover {
+  animation-duration: 0.5s;
+  animation-name: change-width;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.remove-an {
+  animation-name: none !important;
+}
+
+video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    opacity: 0.3;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.settings-top {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 80px;
+  height: 40px;
+  z-index: 2;
+}
 
 .abso-center {
+  z-index: 2;
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -274,11 +334,46 @@ h1 {
           transform: translateY(-50%);
 }
 
+.sk {
+  font-size: 25px;
+}
+
 .center {
   text-align: center;
   margin: 0 auto;
 }
 
+
+.anim {
+  transition: all 0.5s;
+}
+
+.animate-if.ng-enter,
+.animate-if.ng-leave.ng-leave-active {
+  opacity:0;
+}
+
+.animate-if.ng-enter, .animate-if.ng-leave {
+  transition:all 0.5s;
+}
+
+.animate-if.ng-leave,
+.animate-if.ng-enter.ng-enter-active {
+  opacity:1;
+}
+
+
+
+
+@keyframes change-width {
+  from {
+    background-size: 70% 70%;
+  }
+
+  to {
+    background-size: 65% 65%;
+  }
+}
 
 @-moz-keyframes wrong-log-fa {
   0%, 100% {

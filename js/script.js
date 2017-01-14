@@ -6,7 +6,8 @@ angular.module('naview', [
   'ngSanitize',
   'ui.bootstrap',
   'ngCookies',
-  'ngMaterial'
+  'ngMaterial',
+  'ngAnimate'
 ]).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $locationProvider.hashPrefix('!');
 
