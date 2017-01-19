@@ -9,13 +9,13 @@
     <div class="espacement"></div>
       <div class="row text-center">
           <div class="col-sm-4">
-            <button class="test" ng-click="smallScreen()">Small Screen Size</button>
+            <button class="test" ng-click="screen(1.7)">Small Screen Size</button>
           </div>
           <div class="col-sm-4">
-            <button class="test" ng-click="defaultScreen()">Default Screen Size</button>
+            <button class="test" ng-click="screen(1.2)">Default Screen Size</button>
           </div>
           <div class="col-sm-4">
-            <button class="test" ng-click="largeScreen()">Large Screen Size</button>
+            <button class="test" ng-click="screen(1)">Large Screen Size</button>
           </div>
       </div>
       <div class="espacement"></div>
@@ -26,7 +26,15 @@
       </div>
       <div class="espacement"></div>
       <div class="row text-center">
-        <button class="test" ng-click="changeColor()">Color test</button>
+        <div class="col-sm-4">
+          <button class="test" ng-click="changeColor('#0C0D96')">Background Blue</button>
+        </div>
+        <div class="col-sm-4">
+          <button class="test" ng-click="changeColor('#121317')">Default Background</button>
+        </div>
+        <div class="col-sm-4">
+          <button class="test" ng-click="changeColor('#960D11')">Background Red</button>
+        </div>
       </div>
 
       <!-- ... -->
