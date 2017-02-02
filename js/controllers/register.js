@@ -22,7 +22,7 @@ function RegisterController($scope, $http, $location, API) {
     $scope.status = "";
     $http({
       method: 'POST',
-      url: API + '/register',
+      url: API + '/users/register',
       data: $scope.user,
       headers: {
           'Content-Type': 'application/json'

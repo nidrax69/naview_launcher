@@ -7,7 +7,8 @@ angular.module('naview', [
   'ui.bootstrap',
   'ngCookies',
   'ngMaterial',
-  'ngAnimate'
+  'ngAnimate',
+  'picardy.fontawesome'
 ]).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $locationProvider.hashPrefix('!');
 
@@ -33,6 +34,11 @@ angular.module('naview', [
     templateUrl: './src/settings.html',
     controller: 'SettingsController',
     controllerAs: 'settings'
+  })
+  .when('/room/join', {
+    templateUrl: './src/joinRoom.html',
+    controller: 'JoinRoomController',
+    controllerAs: 'join'
   })
   .otherwise({
     redirectTo: '/'

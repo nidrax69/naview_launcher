@@ -24,6 +24,15 @@ function HomePageController($scope, $http, API, $location) {
   $scope.settings = function () {
     $location.url("/settings");
   };
+  $scope.joinRoom = function () {
+    $location.url("/room/join");
+  }
+  $scope.createRoom = function () {
+    $location.url("/room/create");
+  }
+  $scope.favoritesRoom = function () {
+    $location.url("/room/favorites");
+  }
 
   // hide content
   $scope.hideContent = function (value) {

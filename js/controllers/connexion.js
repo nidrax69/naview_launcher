@@ -26,7 +26,7 @@ function ConnectController($scope, $http, API, $location) {
     };
     $http({
       method: 'POST',
-      url: API + '/login',
+      url: API + '/users/login',
       data: naview_user,
       headers: {
           'Content-Type': 'application/json'
@@ -43,13 +43,13 @@ function ConnectController($scope, $http, API, $location) {
         $scope.error = 1;
         $scope.status = "Log in";
         $scope.wait = 0;
-        $scope.response = response.data;
+        $scope.response = response.data.message;
       }
-      else if (response.status === 404) {
+      else if (response.status === 401) {
         $scope.error = 1;
         $scope.status = "Log in";
         $scope.wait = 0;
-        $scope.response = response.data;
+        $scope.response = response.data.message;
       }
       else {
         $scope.error = 0;
