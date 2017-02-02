@@ -14,10 +14,25 @@ function JoinRoomController($scope, $http, API, $location) {
     $location.url("/homepage");
   };
 
-  $scope.getRoom = function(val) {
-   return $http.get(API + "/room/" + val).then(function(response) {
-     return response;
-   });
+  $scope.getRoom = function() {
+    var val = $scope.search;
+    if (val === "") {
+      $scope.rooms = [];
+    }
+    else {
+      $http({
+        method: 'GET',
+        url: API + '/room'
+      }).then(function successCallback(response) {
+        // this callback will be called asynchronously
+        // when the response is available
+        $scope.rooms = response.data;
+      }, function errorCallback(response) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+
+      });
+    }
  };
 }
 

@@ -1,12 +1,29 @@
-<div class="row">
+<div class="row top-room absolute w100">
   <div class="espacement"></div>
   <div class="back-homepage absolute">
     <button type="button" name="button" class="btn-homepage" ng-click="homepage()">Back to homepage</button>
   </div>
   <div class="col-sm-4 col-sm-push-4">
-    <div class="row">
-      <input type="text" class="index-search" placeholder="Search room" ng-model="results" uib-typeahead="room for room in getRoom($viewValue)" typeahead-loading="loadingLocations">
+    <div class="row typeahead-demo">
+      <input type="text" class="index-search" placeholder="Search room" ng-model="search" ng-change="getRoom()" >
       <i class="fa fa-search search-img"></i>
     </div>
+  </div>
+</div>
+
+<div class="row bottom-room absolute w80">
+  <div class="espacement"></div>
+  <div class="col-sm-6 col-sm-push-3" >
+    <div class="row selected" ng-repeat="room in rooms">
+      <div class="espacement"></div>
+      <div class="col-sm-4">
+        <img src="images/rooms/default.jpg" alt="default" class="img-responsive">
+      </div>
+      <div class="col-sm-8">
+        <h2 class="white">{{room.name}}</h2>
+        <span class="white">Users connected : {{room.nbuser}}</span>
+      </div>
+    </div>
+    <div class="espacement"></div>
   </div>
 </div>

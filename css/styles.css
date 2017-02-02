@@ -155,6 +155,73 @@ img[src$=".gif"], img[src$=".png"] {
   right: 20px;
 }
 
+.typeahead-demo .custom-popup-wrapper {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  background-color: #f9f9f9;
+}
+
+.top-room {
+  top: 0%;
+  height: 10%;
+}
+
+.bottom-room {
+  height: 90%;
+  overflow-y: scroll;
+  bottom: 15px;
+}
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar
+{
+	width: 12px;
+   border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: transparent;
+}
+
+.w80 {
+  width: 80%;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.typeahead-demo .custom-popup-wrapper > .message {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+  color: #868686;
+}
+
+.typeahead-demo .custom-popup-wrapper > .dropdown-menu {
+  position: static;
+  float: none;
+  display: block;
+  min-width: 160px;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
 .btn-homepage {
   background: #009aed;
   display: inline-block;
