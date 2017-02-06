@@ -26,6 +26,11 @@ body {
     height: 100%;
 }
 
+h2, span {
+  font-family: 'Raleway', sans-serif;
+  font-weight: bold;
+}
+
 h1 {
   color: #ccc;
   font-family: 'Raleway', sans-serif;
@@ -167,6 +172,15 @@ img[src$=".gif"], img[src$=".png"] {
 .top-room {
   top: 0%;
   height: 10%;
+}
+
+.padding {
+  padding: 10px;
+}
+
+.selected:hover {
+  background-color: rgba(255,255,255,0.3);
+  transition: 0.2s all;
 }
 
 .bottom-room {
