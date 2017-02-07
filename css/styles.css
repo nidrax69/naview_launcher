@@ -156,6 +156,32 @@ img[src$=".gif"], img[src$=".png"] {
   border-radius: 4px;
 }
 
+.color-button {
+  height: 30px;
+  width: 30px
+}
+
+.size-screen {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+	background: #ffffff;
+	border:none;
+	color:#000000;
+	font:bold 12px Verdana;
+	padding:6px 6px 6px 6px;
+}
+
+.title-bar {
+  border:none;
+	padding:6px 0 6px 0;
+	border-radius:8px;
+	background:#ffffff;
+	font:bold 13px Arial;
+	color:#fff;
+  font-size: 20px;
+  color: #000000;
+}
+
 .back-homepage {
   right: 20px;
 }

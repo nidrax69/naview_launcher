@@ -3,37 +3,44 @@
     <div class="col-sm-3"></div>
 
     <div class="col-sm-6">
-      <div class="row text-center">
-          REZISE
+      <div class="row text-center title-bar">
+          Resize Screen
       </div>
     <div class="espacement"></div>
       <div class="row text-center">
           <div class="col-sm-4">
-            <button class="test" ng-click="screen(1.7)">Small Screen Size</button>
+            <button class="size-screen" ng-click="screen(1.7)">Small Screen</button>
           </div>
           <div class="col-sm-4">
-            <button class="test" ng-click="screen(1.2)">Default Screen Size</button>
+            <button class="size-screen" ng-click="screen(1.2)">Default Screen</button>
           </div>
           <div class="col-sm-4">
-            <button class="test" ng-click="screen(1)">Large Screen Size</button>
+            <button class="size-screen" ng-click="screen(1)">Large Screen</button>
           </div>
       </div>
       <div class="espacement"></div>
       <div class="espacement"></div>
 
-      <div class="row text-center">
-          COULEUR
+      <div class="row text-center title-bar">
+          Change Color
       </div>
       <div class="espacement"></div>
       <div class="row text-center">
-        <div class="col-sm-4">
-          <button class="test" ng-click="changeColor('#0C0D96')">Background Blue</button>
+        <div>
+          <button class="color-button" style="background: #121317;" ng-click="changeColor('#121317')"></button>
+          <button class="color-button" style="background: #641E16;" ng-click="changeColor('#641E16')"></button>
+          <button class="color-button" style="background: #EC7063;" ng-click="changeColor('#EC7063')"></button>
+          <button class="color-button" style="background: #145A32;" ng-click="changeColor('#145A32')"></button>
+          <button class="color-button" style="background: #82E0AA;" ng-click="changeColor('#82E0AA')"></button>
+          <button class="color-button" style="background: #1B4F72;" ng-click="changeColor('#1B4F72')"></button>
         </div>
-        <div class="col-sm-4">
-          <button class="test" ng-click="changeColor('#121317')">Default Background</button>
-        </div>
-        <div class="col-sm-4">
-          <button class="test" ng-click="changeColor('#960D11')">Background Red</button>
+        <div>
+          <button class="color-button" style="background: #85C1E9;" ng-click="changeColor('#85C1E9')"></button>
+          <button class="color-button" style="background: #D5D8DC;" ng-click="changeColor('#D5D8DC')"></button>
+          <button class="color-button" style="background: #6E2C00;" ng-click="changeColor('#6E2C00')"></button>
+          <button class="color-button" style="background: #E59866;" ng-click="changeColor('#E59866')"></button>
+          <button class="color-button" style="background: #4A235A;" ng-click="changeColor('#4A235A')"></button>
+          <button class="color-button" style="background: #BB8FCE;" ng-click="changeColor('#BB8FCE')"></button>
         </div>
       </div>
 
@@ -41,19 +48,26 @@
       <div class="espacement"></div>
       <div class="espacement"></div>
 
-      <div class="row text-center">
-          SORTIE AUDIO
+      <div class="row text-center title-bar">
+          Audio Output
       </div>
       <div class="espacement"></div>
+      <div class="row text-center">
+        <select name="pays">
+          <option value="output" selected="selected">Audio output</option>
+        </select>
+      </div>
 
       <!-- ... -->
       <div class="espacement"></div>
       <div class="espacement"></div>
 
-      <div class="row text-center">
-          SON
+      <div class="row text-center title-bar">
+          Sound
       </div>
       <div class="espacement"></div>
+
+      <input type="range" min="0" max="100" value="50">
 
       <!-- ... -->
       <div class="espacement"></div>
