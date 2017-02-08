@@ -40,6 +40,11 @@ angular.module('naview', [
     controller: 'JoinRoomController',
     controllerAs: 'join'
   })
+  .when('/room/create', {
+    templateUrl: './src/createRoom.html',
+    controller: 'CreateRoomController',
+    controllerAs: 'create'
+  })
   .otherwise({
     redirectTo: '/'
   });

@@ -186,6 +186,60 @@ img[src$=".gif"], img[src$=".png"] {
   right: 20px;
 }
 
+.label-inc {
+  font-size: 18px;
+  font-family:  sans-serif;
+}
+
+
+
+.valid-form {
+  position: absolute;
+  right: 5px;
+  top: 35px;
+  width: 20px;
+}
+
+.checkbox {
+  height: 30px;
+  width: 30px;
+}
+
+option, select {
+  color: #000;
+  font-family: 'Raleway', sans-serif;
+  font-size: 18px;
+}
+
+select:focus {
+  color: black !important;
+}
+
+form > .row > div.ng-hide-add, form > .row > div.ng-hide-remove {
+  transition: all 0.5s;
+}
+
+form > .row > div.ng-hide {
+  opacity: 0;
+}
+
+.form_conn {
+    border-width: 0 0 1px;
+    border-style: none none solid;
+    border-radius: 0;
+    border-bottom-color: #fff;
+    color: #fff;
+    font-size: 16px;
+    box-shadow: none;
+    background: transparent;
+    font-family: 'Raleway', sans-serif;
+    padding: 0px;
+}
+
+.form_conn:focus {
+  box-shadow: none;
+}
+
 .typeahead-demo .custom-popup-wrapper {
   position: absolute;
   top: 100%;
@@ -515,6 +569,9 @@ video {
   opacity:1;
 }
 
+.form_conn.ng-invalid-required.ng-touched {
+  box-shadow: none;
+}
 
 
 
