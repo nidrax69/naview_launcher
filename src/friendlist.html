@@ -1,0 +1,95 @@
+<div class="right col-sm-2" ng-controller="NavRightController">
+  <div class="row">
+    <div class="espacement">
+
+    </div>
+    <div class="col-sm-4">
+      <img src="images/naview-stop.png" alt="title" class="rounded2">
+    </div>
+    <div class="col-sm-8">
+      <div class="row">
+        <span class="version">Naview </span>
+        <br>
+        <span class="version2">Alpha build {{version}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="espacement">
+
+    </div>
+    <div class="col-sm-12">
+      <div class="row">
+        <ul class="nav nav-tabs nav-justified">
+          <li role="presentation" ng-click="swap(1);" ng-class="friendsActive"><a>Friends</a></li>
+          <li role="presentation" ng-click="swap(2);" ng-class="newsActive"><a>News</a></li>
+        </ul>
+      </div>
+      <div class="espacement">
+
+      </div>
+      <div class="row" ng-show="friends">
+        <div class="col-sm-12 friend" ng-click="closealltabs(1);message(1);">
+          <div class="row">
+            <div class="col-sm-3">
+              <img src="images/users-logo/user.png" alt="avatar" class="w100">
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <span class="friend-name">Helene-du69-latrick</span>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="row">
+                <span class="green">Online</span>
+              </div>
+            </div>
+          </div>
+          <div class="message-box" ng-show="messages[1]">
+            <div class="fleche_droite"></div>
+          </div>
+        </div>
+        <div class="col-sm-12 friend" ng-click="closealltabs(2);message(2)">
+          <div class="row">
+            <div class="col-sm-3">
+              <img src="images/users-logo/user.png" alt="avatar" class="w100">
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <span class="friend-name">Nidrax</span>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="row">
+                <span class="green">Online</span>
+              </div>
+            </div>
+          </div>
+          <div class="message-box" ng-show="messages[2]">
+            <div class="fleche_droite"></div>
+          </div>
+        </div>
+      </div>
+      <div class="row" ng-show="news">
+        <div class="col-sm-12 news">
+          <span class="name">Math83829</span>
+          <span class="status"> join the room "NeverExpect".<i> 5 min ago</i></span>
+        </div>
+        <div class="col-sm-12 news">
+          <span class="name">Math83829</span>
+          <span class="status"> quit the room "Nicoflutolito".<i> 10 min ago</i></span>
+        </div>
+        <div class="col-sm-12 news">
+          <span class="name">Helene-du-69-latrick</span>
+          <span class="status"> send you a friend request. Click to accept the invitation<i> 45 min ago</i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="settings-top">
+    <div class="settings" ng-click="settings()">
+    </div>
+    <div class="logout" ng-click="logout()">
+    </div>
+</div>

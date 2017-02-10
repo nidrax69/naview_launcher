@@ -1,19 +1,12 @@
 <video id="bgvid" playsinline autoplay muted loop>
   <source src="video/homepage.mp4" type="video/mp4">
 </video>
-<div class="settings-top">
-    <div class="settings" ng-click="settings()">
-    </div>
-    <div class="logout" ng-click="logout()">
-    </div>
-</div>
-
 <div class="abso-center">
   <div class="row h100">
-    <div class="col-sm-4">
+    <div class="col-sm-3">
 
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-6">
       <div class="row">
         <div ng-class="btsClass" class="anim">
           <div class="row text-center">
@@ -24,7 +17,7 @@
             <span class="fear">Join room</span>
           </div>
         </div>
-        <div class="col-sm-3 animate-if" ng-if="showProfile">
+        <div class="col-sm-4 animate-if" ng-if="showProfile">
           <div class="row text-center">
             <div class="square center">
               <div class="content profile">
@@ -37,28 +30,28 @@
     </div>
   </div>
   <div class="row" ng-if="!showProfile">
-    <div class="col-sm-6 col-sm-push-3">
+    <div class="col-sm-6 col-sm-push-2">
       <div class="espacement"></div>
       <div class="row">
         <div class="col-sm-4 animate-if" ng-if="!showChoice1">
-          <button type="button" name="button" class="log-btn sk" ng-click="joinRoom()">Join by #ID</button>
+          <button type="button" name="button" class="log-btn sk" ng-click="joinRoom()">SEARCH</button>
         </div>
         <div class="col-sm-4 animate-if" ng-if="!showChoice2">
-          <button type="button" name="button" class="log-btn sk" ng-click="createRoom()">Create room</button>
+          <button type="button" name="button" class="log-btn sk" ng-click="createRoom()">CREATE</button>
         </div>
         <div class="col-sm-4 animate-if" ng-if="!showChoice3">
-          <button type="button" name="button" class="log-btn sk">Favorites</button>
+          <button type="button" name="button" class="log-btn sk">FAVORITES</button>
         </div>
       </div>
     </div>
   </div>
   <div class="row animate-if" ng-show="!showProfile">
     <div class="espacement"></div>
-    <div class="col-sm-4 col-sm-push-4 text-center">
-      <a type="button" class="text-center" ng-click="hideContent()">Back to Homepage</a>
+    <div class="col-sm-4 col-sm-push-3 text-center">
+      <a type="button" class="text-center" ng-click="hideContent()">Homepage</a>
     </div>
   </div>
 </div>
-<div class="menu-title">
+<div ng-include="'src/friendlist.html'">
 
 </div>

@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Oxygen');
+
 * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -67,9 +69,116 @@ img[src$=".gif"], img[src$=".png"] {
   color: #ccc;
 }
 
+.version {
+  font-size: 16px;
+  color: #585858;
+}
+
+.version2 {
+  font-size: 14px;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+  color: #fff;
+  cursor: default;
+  background-color: #196caf;
+  border-bottom-color: transparent;
+}
+
+.nav-tabs>li>a {
+    font-family: 'Oxygen', sans-serif;
+      font-size: 16px;
+    border-radius: 0px !important;
+    border-bottom: 0px !important;
+    background-color: #2196f3;
+    color: #fff;
+    transition: 0.3s all;
+}
+
+.nav-tabs>li>a:hover {
+    background-color: #F9F9F9;
+    color: #196caf;
+    cursor: pointer;
+}
+
+.nav-tabs.nav-justified>.active>a, .nav-tabs.nav-justified>.active>a:focus, .nav-tabs.nav-justified>.active>a:hover {
+  border: 1px solid #196caf;
+}
+
+.name {
+  font-family: "Oxygen", sans-serif;
+  color: #196caf;
+}
+
+.status {
+    font-family: "Oxygen", sans-serif;
+  color: #afa8a8;
+}
+
+.friend-name {
+  font-family: "Oxygen", sans-serif;
+  color: #afa8a8;
+}
+
+.message-box {
+  width: 270px;
+  height: 350px;
+  background-color: #121317;
+  position: absolute;
+  top: 0px;
+  left: -280px;
+}
+
+.fleche_droite {
+    width: 0;
+    height: 0;
+    right: -10px;
+    top: 15px;
+    position: absolute;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+
+    border-left: 10px solid  #afa8a8;
+}
+
+i {
+  font-family: "Oxygen", sans-serif;
+  color: #585858;
+  float: right;
+}
+
+.green {
+  color: green;
+}
+
+.news {
+  border-bottom: 1px solid #afa8a8;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  cursor: pointer;
+}
+
+.friend {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.friend:hover {
+  background-color: #000;
+}
+
+.news:hover {
+  background-color: #000;
+}
+
 .rounded {
   border-radius: 50%;
   width: 70px;
+  height: auto;
+}
+.rounded2 {
+  border-radius: 50%;
+  width: 100%;
   height: auto;
 }
 
@@ -119,14 +228,19 @@ img[src$=".gif"], img[src$=".png"] {
 }
 
 .search-img {
-  left: 10px;
+  left: 25px;
   top: 10px;
   font-size: 18px;
-  position: relative;
+  position: absolute;
+}
+
+.recent-rooms {
+  font-size: 30px;
+  color: #fff;
+  font-family: "Oxygen", sans-serif;
 }
 
 .index-search {
-  position: absolute;
   padding-left: 35px;
   height: 40px;
   border-radius: 5px;
@@ -141,8 +255,17 @@ img[src$=".gif"], img[src$=".png"] {
   color: #fff;
 }
 
+.right {
+  background-color: #121317;
+  position: absolute;
+  z-index: 2000;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+
 .log-btn {
-  background: #009aed;
+  background: none;
   display: inline-block;
   font-family: 'Raleway', sans-serif;
   width: 100%;
@@ -150,10 +273,13 @@ img[src$=".gif"], img[src$=".png"] {
   height: 50px;
   color: #fff;
   text-decoration: none;
-  border: none;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
+  border: 3px solid #fff;
+}
+
+.log-btn:hover {
+  background-color: #fff;
+  color: #000;
+  transition: 0.3s all;
 }
 
 .color-button {
@@ -452,7 +578,7 @@ form > .row > div.ng-hide {
 }
 
 .profile {
-  background-image: url("../images/homepage/user.png");
+  background-image: url("../images/homepage/user.svg");
   background-size : 70% 70%;
   background-repeat: no-repeat;
   background-position: center;
@@ -491,7 +617,7 @@ form > .row > div.ng-hide {
 }
 
 .room {
-  background-image: url("../images/homepage/plus.png");
+  background-image: url("../images/homepage/plus.svg");
   background-size : 70% 70%;
   background-repeat: no-repeat;
   background-position: center;

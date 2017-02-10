@@ -1,6 +1,6 @@
 {
   "name": "naview-launcher",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Naview-Launcher",
   "main": "main.js",
   "dependencies": {

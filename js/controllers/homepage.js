@@ -14,7 +14,7 @@ function HomePageController($scope, $http, API, $location) {
   $scope.showChoice1 = true;
   $scope.showChoice2 = true;
   $scope.showChoice3 = true;
-  $scope.btsClass = "col-sm-3";
+  $scope.btsClass = "col-sm-4";
   $scope.noAnom = "";
   $scope.count = 0;
 
@@ -38,7 +38,7 @@ function HomePageController($scope, $http, API, $location) {
   $scope.hideContent = function (value) {
     if ($scope.count === 0) {
       $scope.showProfile = false;
-      $scope.btsClass = "col-sm-4 col-sm-push-1";
+      $scope.btsClass = "col-sm-6 col-sm-push-1";
       $scope.noAnom = "remove-an";
       $scope.showChoice1 = false;
 
@@ -63,7 +63,7 @@ function HomePageController($scope, $http, API, $location) {
       $scope.showChoice2 = true;
       $scope.showChoice3 = true;
       $scope.count = 0;
-      $scope.btsClass = "col-sm-3";
+      $scope.btsClass = "col-sm-4";
       $scope.noAnom = "";
     }
   };
