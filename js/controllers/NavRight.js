@@ -48,7 +48,7 @@ function NavRightController($scope, $http, API, $location) {
     setInterval(function (){
       $scope.receiveRandomMessage();
       $scope.$apply();
-    }, Math.round(Math.random() * (3000 - 500)) + 1500)
+    }, Math.round(Math.random() * (3000 - 500)) + 8500)
 
     $scope.$watch('friendlist', function(newNames, oldNames) {
       angular.forEach(newNames, function (value, i) {
@@ -57,6 +57,7 @@ function NavRightController($scope, $http, API, $location) {
         if (value.message.length !== oldNames[i].message.length) {
           $scope.roundedNotif[i] = true;
           $scope.numberNotif[i]++;
+          doNotify(value.name);
         }
       });
     }, true);
@@ -117,6 +118,7 @@ function NavRightController($scope, $http, API, $location) {
       }
     }
 }
+
 
 app.directive('ngEnter', function () {
     return function (scope, element, attrs) {
