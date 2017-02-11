@@ -8,7 +8,8 @@ angular.module('naview', [
   'ngCookies',
   'ngMaterial',
   'ngAnimate',
-  'picardy.fontawesome'
+  'picardy.fontawesome',
+  'luegg.directives'
 ]).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $locationProvider.hashPrefix('!');
 

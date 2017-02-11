@@ -121,19 +121,77 @@ img[src$=".gif"], img[src$=".png"] {
 }
 
 .message-box {
-  width: 270px;
+  width: 300px;
   height: 350px;
   background-color: #121317;
   position: absolute;
   top: 0px;
-  left: -280px;
+  left: -310px;
+  border: 1px solid #afa8a8;
+}
+
+.bottom-box-message {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+textarea {
+  resize: none;
+}
+
+.rounded-notif {
+  color: white;
+}
+
+.espacement-mini {
+  height: 10px;
+}
+
+.top-box-message {
+  position: absolute;
+  overflow-y: scroll;
+  height: 83%;
+  top: 7%;
+}
+
+.name-top {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 17px;
+  text-align: center;
+  color: white;
+  background-color: #2196f3;
+  position: absolute;
+  top: 0;
+  height: 7%;
+}
+
+.msg-view {
+  border-radius: 5px;
+  background-color: #196caf;
+  padding: 5px;
+  color: white;
+  font-family: 'Raleway', sans-serif;
+}
+
+.myself {
+  background-color: #fff;
+  color: #333;
+}
+
+
+.message-input {
+  border-radius: 0% !important;
+  height: 35px !important;
+  color: #333 !important;
+  font-family: 'Raleway', sans-serif;
 }
 
 .fleche_droite {
     width: 0;
     height: 0;
     right: -10px;
-    top: 15px;
+    top: 18px;
     position: absolute;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
