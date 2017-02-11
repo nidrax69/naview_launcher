@@ -9,7 +9,7 @@
 
 var app = angular.module('naview');
 
-function ConnectController($scope, $http, API, $location) {
+function ConnectController($scope, $http, API, $location, jwtHelper, auth) {
   // variables init
   $scope.status = "Log in";
   $scope.wait = 0;
@@ -34,6 +34,7 @@ function ConnectController($scope, $http, API, $location) {
     }).then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
+      auth.saveToken(response.data.token);
       $location.path("homepage");
     }, function errorCallback(response) {
       // called asynchronously if an error occurs
@@ -59,4 +60,4 @@ function ConnectController($scope, $http, API, $location) {
   }
 };
 
-app.controller('ConnectController', ['$scope', '$http', 'API', '$location' , ConnectController]);
+app.controller('ConnectController', ['$scope', '$http', 'API', '$location', 'jwtHelper', 'auth' , ConnectController]);

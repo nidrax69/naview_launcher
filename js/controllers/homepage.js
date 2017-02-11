@@ -18,12 +18,6 @@ function HomePageController($scope, $http, API, $location) {
   $scope.noAnom = "";
   $scope.count = 0;
 
-  $scope.logout = function () {
-    $location.url("/");
-  };
-  $scope.settings = function () {
-    $location.url("/settings");
-  };
   $scope.joinRoom = function () {
     $location.url("/room/join");
   }

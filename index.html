@@ -18,6 +18,9 @@
 <body id="body">
   <div class="container-fluid h100">
     <div data-ng-view class="h100"></div>
+    <div ng-include="'src/friendlist.html'">
+
+    </div>
   </div>
   <!-- bower:js -->
   <script src="bower_components/jquery/jquery.js"></script>
@@ -34,6 +37,7 @@
   <script src="bower_components/remodal/dist/remodal.js"></script>
   <script src="bower_components/angular-fontawesome/dist/angular-fontawesome.js"></script>
   <script src="bower_components/angular-scroll-glue/src/scrollglue.js"></script>
+  <script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
   <!-- endbower -->
 
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -45,6 +49,7 @@
   <script src="js/controllers/joinRoom.js"></script>
   <script src="js/controllers/createRoom.js"></script>
   <script src="js/controllers/NavRight.js"></script>
+  <script src="js/services/authService.js"></script>
   <script src="js/notifications.js"></script>
   <script src="js/constants.js"></script>
   <!-- endbuild -->

@@ -9,7 +9,7 @@
 
 var app = angular.module('naview');
 
-function NavRightController($scope, $http, API, $location) {
+function NavRightController($scope, $http, API, $location, auth) {
     // récuperation version from package.json
     var pjson = require('./package.json');
     $scope.version = pjson.version;
@@ -44,17 +44,21 @@ function NavRightController($scope, $http, API, $location) {
     const messages = ['Salut comment ça va et toi ?', 'Tu as essayé la nouvelle application de Naview ?', 'Demain je serais dispo si tu veux te faire une petite aprem sur Naview', 'MDR', 'Trop Cool',
     "C'est du tonnerre"];
 
+    $scope.isAuthed = function () {
+      return auth.isAuthed ? auth.isAuthed() : false;
+    };
+
     // DEMOs
     setInterval(function (){
       $scope.receiveRandomMessage();
       $scope.$apply();
-    }, Math.round(Math.random() * (3000 - 500)) + 8500)
+    }, Math.round(Math.random() * (3000 - 500)) + 1500)
 
     $scope.$watch('friendlist', function(newNames, oldNames) {
       angular.forEach(newNames, function (value, i) {
         if ($scope.renewValue[i] === 0)
           $scope.renewValue[i] = oldNames[i].message.length;
-        if (value.message.length !== oldNames[i].message.length) {
+        if (value.message.length !== oldNames[i].message.length && !value.active) {
           $scope.roundedNotif[i] = true;
           $scope.numberNotif[i]++;
           doNotify(value.name);
@@ -117,6 +121,14 @@ function NavRightController($scope, $http, API, $location) {
         $scope.friends = false;
       }
     }
+
+    $scope.logout = function () {
+      auth.logout();
+      $location.url("/");
+    };
+    $scope.settings = function () {
+      $location.url("/settings");
+    };
 }
 
 
@@ -135,4 +147,4 @@ app.directive('ngEnter', function () {
 });
 
 
-app.controller('NavRightController', ['$scope', '$http', 'API', '$location' , NavRightController]);
+app.controller('NavRightController', ['$scope', '$http', 'API', '$location', 'auth' , NavRightController]);

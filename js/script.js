@@ -9,7 +9,8 @@ angular.module('naview', [
   'ngMaterial',
   'ngAnimate',
   'picardy.fontawesome',
-  'luegg.directives'
+  'luegg.directives',
+  'angular-jwt'
 ]).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $locationProvider.hashPrefix('!');
 
@@ -50,12 +51,4 @@ angular.module('naview', [
     redirectTo: '/'
   });
 
-}]).run( function($rootScope, $location) {
-   $rootScope.$watch(function() {
-      return $location.path();
-    },
-    function(a){
-      console.log('url has changed: ' + a);
-      // show loading div, etc...
-    });
-});
+}]);

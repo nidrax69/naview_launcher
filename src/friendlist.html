@@ -1,113 +1,115 @@
-<div class="right col-sm-2" ng-controller="NavRightController">
-  <div class="row">
-    <div class="espacement">
-
-    </div>
-    <div class="col-sm-4">
-      <img src="images/naview-stop.png" alt="title" class="rounded2">
-    </div>
-    <div class="col-sm-8">
-      <div class="row">
-        <span class="version">Naview </span>
-        <br>
-        <span class="version2">Alpha build {{version}}</span>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="espacement">
-
-    </div>
-    <div class="col-sm-12">
-      <div class="row">
-        <ul class="nav nav-tabs nav-justified">
-          <li role="presentation" ng-click="swap(1);" ng-class="friendsActive"><a>Friends</a></li>
-          <li role="presentation" ng-click="swap(2);" ng-class="newsActive"><a>News</a></li>
-        </ul>
-      </div>
+<div  ng-controller="NavRightController" >
+  <div class="right col-sm-2" ng-if="isAuthed()">
+    <div class="row">
       <div class="espacement">
 
       </div>
-      <div class="row" ng-show="friends">
-        <div class="col-sm-12 friend" ng-repeat="friend in friendlist track by $index">
-          <div class="row" ng-click="closealltabs($index);open($index);">
-            <div class="col-sm-3">
-              <img src="images/users-logo/user.png" alt="avatar" class="w100">
-            </div>
-            <div class="col-sm-6">
-              <div class="row">
-                <span class="friend-name">{{friend.name}}</span>
+      <div class="col-sm-4">
+        <img src="images/naview-stop.png" alt="title" class="rounded2">
+      </div>
+      <div class="col-sm-8">
+        <div class="row">
+          <span class="version">Naview </span>
+          <br>
+          <span class="version2">Alpha build {{version}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="espacement">
+
+      </div>
+      <div class="col-sm-12">
+        <div class="row">
+          <ul class="nav nav-tabs nav-justified">
+            <li role="presentation" ng-click="swap(1);" ng-class="friendsActive"><a>Friends</a></li>
+            <li role="presentation" ng-click="swap(2);" ng-class="newsActive"><a>News</a></li>
+          </ul>
+        </div>
+        <div class="espacement">
+
+        </div>
+        <div class="row" ng-show="friends">
+          <div class="col-sm-12 friend" ng-repeat="friend in friendlist track by $index">
+            <div class="row" ng-click="closealltabs($index);open($index);">
+              <div class="col-sm-3">
+                <img src="images/users-logo/user.png" alt="avatar" class="size-avatar">
                 <div class="rounded-notif" ng-if="roundedNotif[$index] === true" ng-init="renewValue[$index] = 1; numberNotif[$index] = 1">
-                  New message ({{numberNotif[$index]}})
+                  {{numberNotif[$index]}}
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="row">
+                  <span class="friend-name">{{friend.name}}</span>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="row">
+                  <span class="green">Online</span>
                 </div>
               </div>
             </div>
-            <div class="col-sm-3">
-              <div class="row">
-                <span class="green">Online</span>
+            <div class="message-box" ng-show="friend.active">
+              <div class="fleche_droite"></div>
+              <div class="name-top w100">
+                {{friend.name}}
               </div>
-            </div>
-          </div>
-          <div class="message-box" ng-show="friend.active">
-            <div class="fleche_droite"></div>
-            <div class="name-top w100">
-              {{friend.name}}
-            </div>
-            <div class="top-box-message w100" scroll-glue>
-              <div class="espacement-mini">
-
-              </div>
-              <div class="w100" ng-repeat="msg in friend.message">
-                <div class="msg-view col-sm-push-1 col-sm-7" ng-if="msg.id !== myFakeID">
-                  {{msg.text}}
-                </div>
-                <div class="col-sm-2 col-sm-push-1 white" ng-if="msg.id === myFakeID">
-                  {{msg.date | date : "HH:mm"}}
-                </div>
-                <div class="col-sm-2 col-sm-push-1 white" ng-if="msg.id !== myFakeID">
-                  {{msg.date | date : "HH:mm"}}
-                </div>
-                <div class="msg-view col-sm-push-3 col-sm-7 myself" ng-if="msg.id === myFakeID">
-                  {{msg.text}}
-                </div>
-                <div class="clearfix">
-
-                </div>
+              <div class="top-box-message w100" scroll-glue>
                 <div class="espacement-mini">
 
                 </div>
+                <div class="w100" ng-repeat="msg in friend.message">
+                  <div class="msg-view col-sm-push-1 col-sm-7" ng-if="msg.id !== myFakeID">
+                    {{msg.text}}
+                  </div>
+                  <div class="col-sm-2 col-sm-push-1 white" ng-if="msg.id === myFakeID">
+                    {{msg.date | date : "HH:mm"}}
+                  </div>
+                  <div class="col-sm-2 col-sm-push-1 white" ng-if="msg.id !== myFakeID">
+                    {{msg.date | date : "HH:mm"}}
+                  </div>
+                  <div class="msg-view col-sm-push-3 col-sm-6 myself" ng-if="msg.id === myFakeID">
+                    {{msg.text}}
+                  </div>
+                  <div class="clearfix">
+
+                  </div>
+                  <div class="espacement-mini">
+
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="bottom-box-message w100">
-              <div class="col-sm-12">
-                <div class="row">
-                  <textarea ng-model="messageToSend[$index]" ng-enter="sendMessage($index)" class="form-control message-input" name="taname" id="taid" cols="35" wrap="soft"></textarea>
+              <div class="bottom-box-message w100">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <textarea ng-model="messageToSend[$index]" ng-enter="sendMessage($index)" class="form-control message-input" name="taname" id="taid" cols="35" wrap="soft"></textarea>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <div class="row" ng-show="news">
+          <div class="col-sm-12 news">
+            <span class="name">Math83829</span>
+            <span class="status"> join the room "NeverExpect".<i> 5 min ago</i></span>
+          </div>
+          <div class="col-sm-12 news">
+            <span class="name">Math83829</span>
+            <span class="status"> quit the room "Nicoflutolito".<i> 10 min ago</i></span>
+          </div>
+          <div class="col-sm-12 news">
+            <span class="name">Helene-du-69-latrick</span>
+            <span class="status"> send you a friend request. Click to accept the invitation<i> 45 min ago</i></span>
+          </div>
+        </div>
       </div>
-      <div class="row" ng-show="news">
-        <div class="col-sm-12 news">
-          <span class="name">Math83829</span>
-          <span class="status"> join the room "NeverExpect".<i> 5 min ago</i></span>
+    </div>
+    <div class="settings-top">
+        <div class="settings" ng-click="settings()">
         </div>
-        <div class="col-sm-12 news">
-          <span class="name">Math83829</span>
-          <span class="status"> quit the room "Nicoflutolito".<i> 10 min ago</i></span>
+        <div class="logout" ng-click="logout()">
         </div>
-        <div class="col-sm-12 news">
-          <span class="name">Helene-du-69-latrick</span>
-          <span class="status"> send you a friend request. Click to accept the invitation<i> 45 min ago</i></span>
-        </div>
-      </div>
     </div>
   </div>
-</div>
-<div class="settings-top">
-    <div class="settings" ng-click="settings()">
-    </div>
-    <div class="logout" ng-click="logout()">
-    </div>
 </div>
