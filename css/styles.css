@@ -147,17 +147,16 @@ textarea {
 
 .rounded-notif {
   color: white;
-  font-family: 'Oxygen', sans-serif;
-  font-size: 15px;
+  font-family: sans-serif;
+  font-size: 12px;
   position: absolute;
   text-align: center;
-  top: 0px;
-  line-height: 35px;
+  top: -5px;
   left: 15px;
   border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  background-color: rgba(255, 0, 0, 0.8);
+  width: 18px;
+  height: 18px;
+  background-color: rgba(255, 0, 0, 1);
 }
 
 .espacement-mini {
