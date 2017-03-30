@@ -21,8 +21,14 @@ function JoinRoomController($scope, $http, API, $location) {
     }
     else {
       $http({
-        method: 'GET',
-        url: API + '/room'
+        method: 'POST',
+        url: API + '/room/getbyname',
+        data: {
+          name : $scope.search
+        },
+        headers: {
+            'Content-Type': 'application/json'
+        }
       }).then(function successCallback(response) {
         // this callback will be called asynchronously
         // when the response is available

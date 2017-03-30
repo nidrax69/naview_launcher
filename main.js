@@ -31,7 +31,7 @@ app.on('ready', function() {
     resizable: false,
     fullscreenable: false,
     titleBarStyle: 'hidden',
-    frame: false
+    // frame: false
   });
 
   // and load the index.html of the app.

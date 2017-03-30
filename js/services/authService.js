@@ -9,29 +9,29 @@
 
 var app = angular.module('naview');
 
-function authInterceptor(API, auth, $q) {
-    return {
-        // request: function (config) {
-        //     config.headers = config.headers || {};
-        //     if (auth.getToken()) {
-        //         config.headers.Authorization = 'Bearer ' + auth.getToken();
-        //     }
-        //     return config;
-        // },
-        // If a token was sent back, save it
-        response: function (res) {
-            if (res.config.url.indexOf(API) === 0 && res.data.token) {
-                auth.saveToken(res.data.token);
-                auth.getUser();
-            }
-            return res;
-        },
-        responseError: function (rejection) {
-            // do something on error
-            return $q.reject(rejection);
-        }
-    };
-}
+// function authInterceptor(API, auth, $q) {
+//     return {
+//         request: function (config) {
+//             config.headers = config.headers || {};
+//             if (auth.getToken()) {
+//                 config.headers.Authorization = 'Bearer ' + auth.getToken();
+//             }
+//             return config;
+//         },
+//         // If a token was sent back, save it
+//         response: function (res) {
+//             if (res.config.url.indexOf(API) === 0 && res.data.token) {
+//                 auth.saveToken(res.data.token);
+//                 auth.getUser();
+//             }
+//             return res;
+//         },
+//         responseError: function (rejection) {
+//             // do something on error
+//             return $q.reject(rejection);
+//         }
+//     };
+// }
 
 function AuthService($window, jwtHelper) {
     var self = this;
@@ -101,7 +101,7 @@ app.service('auth', ['$window', 'jwtHelper', '$http', 'API', AuthService])
         tokenGetter: ['options', function(options) {
           return localStorage.getItem('id_token');
         }],
-        whiteListedDomains: ['api.myapp.com', 'localhost']
+        whiteListedDomains: ['api.myapp.com', 'localhost', '127.0.0.1']
       });
       $httpProvider.interceptors.push('jwtInterceptor');
   });
