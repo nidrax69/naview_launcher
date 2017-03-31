@@ -1,6 +1,6 @@
 var app = angular.module('naview');
 
 app.factory('API', function($location){
-    var api = "http://127.0.0.1:3000"
+    var api = "http://naview-server.herokuapp.com"
     return api;
 })
