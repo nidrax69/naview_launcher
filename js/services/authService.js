@@ -101,7 +101,7 @@ app.service('auth', ['$window', 'jwtHelper', '$http', 'API', AuthService])
         tokenGetter: ['options', function(options) {
           return localStorage.getItem('id_token');
         }],
-        whiteListedDomains: ['api.myapp.com', 'localhost', '127.0.0.1']
+        whiteListedDomains: ['api.myapp.com', 'localhost', '127.0.0.1', 'naview-server.herokuapp.com']
       });
       $httpProvider.interceptors.push('jwtInterceptor');
   });

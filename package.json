@@ -14,7 +14,7 @@
     "electron-connect": "^0.6.1",
     "electron-packager": "^8.3.0",
     "electron-prebuilt": "^0.35.2",
-    "gulp": "^3.9.1",
+    "gulp": "~3.9.1",
     "gulp-livereload": "^3.8.1",
     "gulp-run": "^1.7.1"
   },
