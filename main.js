@@ -31,7 +31,8 @@ app.on('ready', function() {
     resizable: false,
     fullscreenable: false,
     titleBarStyle: 'hidden',
-    frame: false
+    frame: false,
+    icon: __dirname + '/images/ico/new2.ico'
   });
 
   // and load the index.html of the app.
@@ -42,7 +43,7 @@ app.on('ready', function() {
   client.create(mainWindow);
 
   // Uncomment to use Chrome developer tools
-  //mainWindow.webContents.openDevTools({detach:false});
+  mainWindow.webContents.openDevTools({detach:false});
 
 
   // Emitted when the window is closed.

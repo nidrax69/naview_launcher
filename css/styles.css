@@ -58,7 +58,11 @@ h2, span {
 }
 
 .special2 {
-  color: #9a9a9a;
+  color: #f0f0f0;
+}
+
+.special2:hover {
+  color: #f0f0f0;
 }
 
 .username-a {
@@ -201,8 +205,8 @@ textarea {
 .top-box-message {
   position: absolute;
   overflow-y: scroll;
-  height: 83%;
-  top: 7%;
+  height: 80%;
+  top: 10%;
 }
 
 .name-top {
@@ -213,7 +217,8 @@ textarea {
   background-color: #2196f3;
   position: absolute;
   top: 0;
-  height: 7%;
+  padding-top: 5px;
+  height: 10%;
 }
 
 .msg-view {

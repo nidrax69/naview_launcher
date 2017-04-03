@@ -1,11 +1,11 @@
 <div  ng-controller="NavRightController" >
-  <div class="right col-sm-2" ng-if="isAuthed() && !atlogin">
+  <div class="right col-md-3 col-sm-3 col-lg-2" ng-if="isAuthed() && !atlogin">
     <div class="row">
       <div class="espacement">
 
       </div>
       <div class="col-sm-4">
-        <img src="images/naview-stop.png" alt="title" class="rounded2">
+        <img src="images/new2.png" alt="title" class="img-responsive">
       </div>
       <div class="col-sm-8">
         <div class="row">
@@ -82,7 +82,7 @@
               <div class="bottom-box-message w100">
                 <div class="col-sm-12">
                   <div class="row">
-                    <textarea ng-model="messageToSend[$index]" ng-enter="sendMessage($index)" class="form-control message-input" name="taname" id="taid" cols="35" wrap="soft"></textarea>
+                    <textarea ng-model="messageToSend[$index]" placeholder="Write a message..." ng-enter="sendMessage($index)" class="form-control message-input" name="taname" id="taid" cols="35" wrap="soft"></textarea>
                   </div>
                 </div>
               </div>

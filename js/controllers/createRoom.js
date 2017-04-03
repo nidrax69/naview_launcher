@@ -15,8 +15,6 @@ function CreateRoomController($scope, $http, API, $location, close, $element) {
   };
   $scope.wait = 0;
   $scope.room = {};
-  $scope.room.ip = "193.939.93.39";
-  $scope.room.datebegin = new Date();
   $scope.room.nbuser = 10;
   $scope.room.private = false;
 
