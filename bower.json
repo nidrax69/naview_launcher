@@ -27,12 +27,15 @@
     "remodal": "^1.1.1",
     "angular-fontawesome": "^1.0.0",
     "angular-scroll-glue": "^2.1.0",
-    "angular-jwt": "^0.1.9"
+    "angular-jwt": "^0.1.9",
+    "aos": "^2.1.1",
+    "angular-modal-service": "^0.11.1"
   },
   "devDependencies": {
     "jquery": "1.9.1"
   },
   "resolutions": {
-    "bootstrap": "3.3.2"
+    "bootstrap": "3.3.2",
+    "angular": "^1.6.1"
   }
 }

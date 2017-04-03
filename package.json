@@ -12,6 +12,7 @@
   "devDependencies": {
     "electron": "^1.4.13",
     "electron-connect": "^0.6.1",
+    "electron-cookies": "^1.1.0",
     "electron-packager": "^8.3.0",
     "electron-prebuilt": "^0.35.2",
     "gulp": "~3.9.1",

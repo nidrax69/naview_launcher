@@ -9,10 +9,22 @@
 
 var app = angular.module('naview');
 
-function ConnectController($scope, $http, API, $location, jwtHelper, auth) {
+function ConnectController($scope, $http, API, $location, jwtHelper, auth, $rootScope) {
   // variables init
   $scope.status = "Log in";
   $scope.wait = 0;
+  $scope.form = 1;
+  $rootScope.atlogin = true;
+  AOS.init();
+
+  if (auth.getToken() &&!jwtHelper.isTokenExpired(auth.getToken())) {
+    $scope.form = 0
+    $scope.user = auth.getUser();
+    $scope.wait = 1;
+    setTimeout(function (){
+      $location.path("homepage");
+    }, 300);
+  }
 
   // log to app
   $scope.log = function () {
@@ -60,4 +72,4 @@ function ConnectController($scope, $http, API, $location, jwtHelper, auth) {
   }
 };
 
-app.controller('ConnectController', ['$scope', '$http', 'API', '$location', 'jwtHelper', 'auth' , ConnectController]);
+app.controller('ConnectController', ['$scope', '$http', 'API', '$location', 'jwtHelper', 'auth', '$rootScope' , ConnectController]);

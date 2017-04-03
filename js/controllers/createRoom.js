@@ -9,11 +9,11 @@
 
 var app = angular.module('naview');
 
-function CreateRoomController($scope, $http, API, $location) {
+function CreateRoomController($scope, $http, API, $location, close, $element) {
   $scope.homepage = function () {
     $location.url("/homepage");
   };
-
+  $scope.wait = 0;
   $scope.room = {};
   $scope.room.ip = "193.939.93.39";
   $scope.room.datebegin = new Date();
@@ -24,7 +24,13 @@ function CreateRoomController($scope, $http, API, $location) {
     $scope.room.pwd = "";
   }
 
+  $scope.dismissModal = function () {
+    $element.modal('hide');
+    close(null, 1000);
+  };
+
   $scope.createRoom = function() {
+    $scope.wait = 1;
     $http({
       method: 'POST',
       url: API + '/room',
@@ -35,13 +41,20 @@ function CreateRoomController($scope, $http, API, $location) {
     }).then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
+      setTimeout(function (){
+        $scope.wait = 0;
+        $scope.dismissModal();
+      }, 2500);
     }, function errorCallback(response) {
       // called asynchronously if an error occurs
       // or server returns response with an error status.
-
+      setTimeout(function (){
+        $scope.wait = 0;
+        $scope.dismissModal();
+      }, 2500);
     });
  };
 
 };
 
-app.controller('CreateRoomController', ['$scope', '$http', 'API', '$location' , CreateRoomController]);
+app.controller('CreateRoomController', ['$scope', '$http', 'API', '$location', 'close', '$element', CreateRoomController]);

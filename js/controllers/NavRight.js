@@ -50,9 +50,9 @@ function NavRightController($scope, $http, API, $location, auth) {
 
     // DEMOs
     setInterval(function (){
-      $scope.receiveRandomMessage();
+      // $scope.receiveRandomMessage();
       $scope.$apply();
-    }, Math.round(Math.random() * (3000 - 500)) + 1500)
+    }, Math.round(Math.random() * (3000 - 500)) + 1500);
 
     $scope.$watch('friendlist', function(newNames, oldNames) {
       angular.forEach(newNames, function (value, i) {

@@ -1,7 +1,7 @@
-<video id="bgvid" playsinline autoplay muted loop>
+<!-- <video id="bgvid" playsinline autoplay muted loop >
   <source src="video/homepage.mp4" type="video/mp4">
-</video>
-<div class="abso-center">
+</video> -->
+<div class="abso-center" >
   <div class="row h100">
     <div class="col-sm-3">
 
@@ -10,8 +10,8 @@
       <div class="row">
         <div ng-class="btsClass" class="anim">
           <div class="row text-center">
-            <div class="square center" ng-click="hideContent(3)">
-              <div class="content room" ng-class="noAnom">
+            <div class="square center" ng-click="hideContent(1)" data-aos="fade-right" >
+              <div class="content room">
               </div>
             </div>
             <span class="fear">Join room</span>
@@ -19,7 +19,7 @@
         </div>
         <div class="col-sm-4 animate-if" ng-if="showProfile">
           <div class="row text-center">
-            <div class="square center">
+            <div class="square center" data-aos="fade-left">
               <div class="content profile">
               </div>
             </div>
@@ -33,13 +33,13 @@
     <div class="col-sm-6 col-sm-push-2">
       <div class="espacement"></div>
       <div class="row">
-        <div class="col-sm-4 animate-if" ng-if="!showChoice1">
+        <div class="col-sm-4 animate-if" data-aos="zoom-in" data-aos-delay="100">
           <button type="button" name="button" class="log-btn sk" ng-click="joinRoom()">SEARCH</button>
         </div>
-        <div class="col-sm-4 animate-if" ng-if="!showChoice2">
+        <div class="col-sm-4 animate-if" data-aos="zoom-in" data-aos-delay="300">
           <button type="button" name="button" class="log-btn sk" ng-click="createRoom()">CREATE</button>
         </div>
-        <div class="col-sm-4 animate-if" ng-if="!showChoice3">
+        <div class="col-sm-4 animate-if" data-aos="zoom-in" data-aos-delay="500">
           <button type="button" name="button" class="log-btn sk">FAVORITES</button>
         </div>
       </div>
@@ -48,7 +48,7 @@
   <div class="row animate-if" ng-show="!showProfile">
     <div class="espacement"></div>
     <div class="col-sm-4 col-sm-push-3 text-center">
-      <a type="button" class="text-center" ng-click="hideContent()">Homepage</a>
+      <a type="button" class="text-center btn btn-primary" ng-click="hideContent(0)">Homepage</a>
     </div>
   </div>
 </div>

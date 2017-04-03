@@ -20,7 +20,8 @@ input, button, textarea, :focus {
 }
 
 body {
-  background: #121317;
+  background: #0e60c7;
+  background: url(../images/128-23.png), linear-gradient(#212121, #0e60c7);
 }
 
 html,
@@ -28,9 +29,43 @@ body {
     height: 100%;
 }
 
+.modal.in .modal-dialog {
+    -webkit-transform: translate(0,50%);
+    -ms-transform: translate(0,50%);
+    -o-transform: translate(0,50%);
+    transform: translate(0,50%);
+}
+
+.close {
+  font-size: 40px;
+}
+
+.modal-content {
+  background: #121317;
+}
+
+.modal {
+  right: 16.6666%;
+}
+
 h2, span {
   font-family: 'Raleway', sans-serif;
   font-weight: bold;
+}
+
+.special {
+    color: #f0f0f0;
+}
+
+.special2 {
+  color: #9a9a9a;
+}
+
+.username-a {
+  color: #f0f0f0;
+  font-size: 18px;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 2px;
 }
 
 h1 {

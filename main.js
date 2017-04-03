@@ -31,7 +31,7 @@ app.on('ready', function() {
     resizable: false,
     fullscreenable: false,
     titleBarStyle: 'hidden',
-    // frame: false
+    frame: false
   });
 
   // and load the index.html of the app.
@@ -42,19 +42,14 @@ app.on('ready', function() {
   client.create(mainWindow);
 
   // Uncomment to use Chrome developer tools
-  // mainWindow.webContents.openDevTools({detach:false});
+  //mainWindow.webContents.openDevTools({detach:false});
 
-  // remove cookie if windows is closed
-  function delete_cookie( name ) {
-    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  }
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    delete_cookie('id_token');
     mainWindow = null;
   });
 });

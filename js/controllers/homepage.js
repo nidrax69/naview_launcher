@@ -9,20 +9,30 @@
 
 var app = angular.module('naview');
 
-function HomePageController($scope, $http, API, $location) {
+function HomePageController($scope, $http, API, $location, $rootScope, ModalService) {
   $scope.showProfile = true;
-  $scope.showChoice1 = true;
-  $scope.showChoice2 = true;
-  $scope.showChoice3 = true;
   $scope.btsClass = "col-sm-4";
   $scope.noAnom = "";
   $scope.count = 0;
+  $rootScope.atlogin = false;
+  AOS.init();
 
   $scope.joinRoom = function () {
     $location.url("/room/join");
   }
   $scope.createRoom = function () {
-    $location.url("/room/create");
+      ModalService.showModal({
+        templateUrl: "src/createRoom.html",
+        controller: "CreateRoomController"
+      }).then(function(modal) {
+       // The modal object has the element built, if this is a bootstrap modal
+       // you can call 'modal' to show it, if it's a custom modal just show or hide
+       // it as you need to.
+       modal.element.modal();
+       modal.close.then(function(result) {
+        $scope.message = result ? "You said Yes" : "You said No";
+      });
+    });
   }
   $scope.favoritesRoom = function () {
     $location.url("/room/favorites");
@@ -30,32 +40,13 @@ function HomePageController($scope, $http, API, $location) {
 
   // hide content
   $scope.hideContent = function (value) {
-    if ($scope.count === 0) {
+    if (value === 1) {
       $scope.showProfile = false;
       $scope.btsClass = "col-sm-6 col-sm-push-1";
       $scope.noAnom = "remove-an";
-      $scope.showChoice1 = false;
-
-      setTimeout(function (){
-        // Something you want delayed.
-        $scope.showChoice2 = false;
-        $scope.$apply();
-        setTimeout(function (){
-          $scope.showChoice3 = false;
-          $scope.$apply();
-        }, 300);
-
-
-        $scope.$apply();
-
-      }, 300);
-      $scope.count = 1;
     }
-    else if ($scope.count === 1 && value !== 3) {
+    if (value === 0) {
       $scope.showProfile = true;
-      $scope.showChoice1 = true;
-      $scope.showChoice2 = true;
-      $scope.showChoice3 = true;
       $scope.count = 0;
       $scope.btsClass = "col-sm-4";
       $scope.noAnom = "";
@@ -63,4 +54,4 @@ function HomePageController($scope, $http, API, $location) {
   };
 };
 
-app.controller('HomePageController', ['$scope', '$http', 'API', '$location' , HomePageController]);
+app.controller('HomePageController', ['$scope', '$http', 'API', '$location', '$rootScope', 'ModalService' , HomePageController]);

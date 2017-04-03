@@ -10,7 +10,8 @@ angular.module('naview', [
   'ngAnimate',
   'picardy.fontawesome',
   'luegg.directives',
-  'angular-jwt'
+  'angular-jwt',
+  'angularModalService'
 ]).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $locationProvider.hashPrefix('!');
 

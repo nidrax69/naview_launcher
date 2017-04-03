@@ -8,11 +8,20 @@
         <div class="row title">
           <div class="col-xs-8"><h1>Sign in</h1></div>
           <div class="col-xs-4">
-            <img src="./images/logo.png" alt="" class="rounded">
+            <img src="./images/new2.png" class="img-responsive" >
           </div>
         </div>
         <div class="espacement"></div>
-        <form name="loginform" class="form-style" novalidate ng-submit="loginform.$valid && log()">
+        <div ng-show="!form" class="">
+          <h2 class="special">Bienvenue, </h2>
+          <span data-aos="fade-right" class="username-a">{{user.username}}</span>
+          <div class="espacement">
+
+          </div>
+          <span class="special">Connexion en cours...</span>
+          <img ng-hide="!wait" src="./images/default.svg" alt="waiting">
+        </div>
+        <form name="loginform" ng-show="form" class="form-style" novalidate ng-submit="loginform.$valid && log()">
           <div class="form-group">
             <input type="text" class="form-control form-login" placeholder="Username" required="" id="UserName" ng-model="username">
             <i class="fa fa-user"></i>
@@ -27,7 +36,7 @@
           </button>
         </form>
         <div class="espacement"></div>
-        <a class="notRegister" href="#!/register">Not registered ?</a>
+        <a class="notRegister" ng-if="form" href="#!/register">Not registered ?</a>
         <span class="alert col-sm-12 text-center">{{response}}</span>
         <a class="link" ng-if="error" href="#">Lost your password ?</a>
         <div class="espacement"></div>
