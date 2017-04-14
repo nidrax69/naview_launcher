@@ -9,9 +9,10 @@
 
 var app = angular.module('naview');
 
-function NavRightController($scope, $http, API, $location, auth) {
+function NavRightController($scope, $http, API, $location, auth, socketFactory) {
     // récuperation version from package.json
     var pjson = require('./package.json');
+
     $scope.version = pjson.version;
     $scope.newsActive = "";
     $scope.friendsActive = "active";
@@ -90,6 +91,7 @@ function NavRightController($scope, $http, API, $location, auth) {
             'id' : $scope.myFakeID
         }
         );
+        socketFactory.emit('user:message', { pseudo: $scope.myFakeID, message: $scope.messageToSend[val]})
         $scope.messageToSend[val] = "";
       }
     }
@@ -147,4 +149,4 @@ app.directive('ngEnter', function () {
 });
 
 
-app.controller('NavRightController', ['$scope', '$http', 'API', '$location', 'auth' , NavRightController]);
+app.controller('NavRightController', ['$scope', '$http', 'API', '$location', 'auth', 'socketFactory' , NavRightController]);

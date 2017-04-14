@@ -21,7 +21,7 @@ input, button, textarea, :focus {
 
 body {
   background: #0e60c7;
-  background: url(../images/128-23.png), linear-gradient(#212121, #0e60c7);
+  background: url(../images/128-23.png), linear-gradient(#0e60c7, #212121);
 }
 
 html,

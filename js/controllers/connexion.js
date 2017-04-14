@@ -21,9 +21,9 @@ function ConnectController($scope, $http, API, $location, jwtHelper, auth, $root
     $scope.form = 0
     $scope.user = auth.getUser();
     $scope.wait = 1;
-    setTimeout(function (){
+    // setTimeout(function (){
       $location.path("homepage");
-    }, 300);
+    // }, 300);
   }
 
   // log to app

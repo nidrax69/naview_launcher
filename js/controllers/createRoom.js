@@ -15,7 +15,6 @@ function CreateRoomController($scope, $http, API, $location, close, $element) {
   };
   $scope.wait = 0;
   $scope.room = {};
-  $scope.room.nbuser = 10;
   $scope.room.private = false;
 
   $scope.reset = function () {

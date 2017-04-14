@@ -18,8 +18,8 @@
 </head>
 <body id="body">
   <div class="container-fluid h100">
-    <div data-ng-view class="h100"></div>
-    <div ng-include="'src/friendlist.html'">
+    <div ui-view class="h100"></div>
+    <div ui-view="connected">
 
     </div>
   </div>
@@ -41,8 +41,10 @@
   <script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
   <script src="bower_components/aos/dist/aos.js"></script>
   <script src="bower_components/angular-modal-service/dst/angular-modal-service.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
   <!-- endbower -->
   <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.0/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
 
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
   <script src="js/script.js"></script>
@@ -56,6 +58,7 @@
   <script src="js/services/authService.js"></script>
   <script src="js/notifications.js"></script>
   <script src="js/constants.js"></script>
+  <script src="js/factories/socket.js"></script>
   <!-- endbuild -->
 </body>
 </html>
