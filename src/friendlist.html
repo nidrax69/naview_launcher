@@ -29,9 +29,9 @@
         <div class="espacement">
 
         </div>
-        <div class="row" ng-show="friends">
+        <div class="row message-row" ng-show="friends">
           <div class="col-sm-12 friend" ng-repeat="friend in friendlist track by $index">
-            <div class="row" ng-click="closealltabs($index);open($index);">
+            <div class="row" ng-click="closealltabs($index);open(friend.id);">
               <div class="col-sm-3">
                 <img src="images/users-logo/user.png" alt="avatar" class="size-avatar">
                 <div class="rounded-notif" ng-if="roundedNotif[$index] === true" ng-init="renewValue[$index] = 1; numberNotif[$index] = 1">
@@ -46,44 +46,6 @@
               <div class="col-sm-3">
                 <div class="row">
                   <span class="green">Online</span>
-                </div>
-              </div>
-            </div>
-            <div class="message-box" ng-show="friend.active">
-              <div class="fleche_droite"></div>
-              <div class="name-top w100">
-                {{friend.name}}
-              </div>
-              <div class="top-box-message w100" scroll-glue>
-                <div class="espacement-mini">
-
-                </div>
-                <div class="w100" ng-repeat="msg in friend.message">
-                  <div class="msg-view col-sm-push-1 col-sm-7" ng-if="msg.id !== myFakeID">
-                    {{msg.text}}
-                  </div>
-                  <div class="col-sm-2 col-sm-push-1 white" ng-if="msg.id === myFakeID">
-                    {{msg.date | date : "HH:mm"}}
-                  </div>
-                  <div class="col-sm-2 col-sm-push-1 white" ng-if="msg.id !== myFakeID">
-                    {{msg.date | date : "HH:mm"}}
-                  </div>
-                  <div class="msg-view col-sm-push-3 col-sm-6 myself" ng-if="msg.id === myFakeID">
-                    {{msg.text}}
-                  </div>
-                  <div class="clearfix">
-
-                  </div>
-                  <div class="espacement-mini">
-
-                  </div>
-                </div>
-              </div>
-              <div class="bottom-box-message w100">
-                <div class="col-sm-12">
-                  <div class="row">
-                    <textarea ng-model="messageToSend[$index]" placeholder="Write a message..." ng-enter="sendMessage($index)" class="form-control message-input" name="taname" id="taid" cols="35" wrap="soft"></textarea>
-                  </div>
                 </div>
               </div>
             </div>
@@ -110,6 +72,46 @@
         </div>
         <div class="logout" ng-click="logout()">
         </div>
+    </div>
+    <div class="messages col-md-9 col-sm-9 col-lg-10">
+      <div class="message-box col-sm-2" ng-repeat="message in messageList track by $index">
+        <div class="fleche_droite"></div>
+        <div class="name-top w100">
+          {{friend.name}}
+        </div>
+        <div class="top-box-message w100" scroll-glue ng-if="message.active">
+          <div class="espacement-mini">
+
+          </div>
+          <div class="w100" ng-repeat="msg in friend.message" >
+            <div class="msg-view col-sm-push-1 col-sm-7" ng-if="msg.id !== myFakeID">
+              {{msg.text}}
+            </div>
+            <div class="col-sm-2 col-sm-push-1 white" ng-if="msg.id === myFakeID">
+              {{msg.date | date : "HH:mm"}}
+            </div>
+            <div class="col-sm-2 col-sm-push-1 white" ng-if="msg.id !== myFakeID">
+              {{msg.date | date : "HH:mm"}}
+            </div>
+            <div class="msg-view col-sm-push-3 col-sm-6 myself" ng-if="msg.id === myFakeID">
+              {{msg.text}}
+            </div>
+            <div class="clearfix">
+
+            </div>
+            <div class="espacement-mini">
+
+            </div>
+          </div>
+        </div>
+        <div class="bottom-box-message w100" ng-if="message.active">
+          <div class="col-sm-12">
+            <div class="row">
+              <textarea ng-model="messageToSend[$index]" placeholder="Write a message..." ng-enter="sendMessage($index)" class="form-control message-input" name="taname" id="taid" cols="35" wrap="soft"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

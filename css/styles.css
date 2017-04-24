@@ -159,13 +159,21 @@ img[src$=".gif"], img[src$=".png"] {
   color: #afa8a8;
 }
 
+.message-row {
+  overflow: scroll;
+  height: 480px;
+}
+
+.messages {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 40px;
+}
+
 .message-box {
-  width: 300px;
   height: 350px;
   background-color: #121317;
-  position: absolute;
-  top: 0px;
-  left: -310px;
   border: 1px solid #afa8a8;
 }
 

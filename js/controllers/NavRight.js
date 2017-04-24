@@ -23,6 +23,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory) 
     $scope.roundedNotif = [];
     $scope.numberNotif = [];
     $scope.renewValue = [];
+    $scope.messageList = [];
     $scope.friendlist = [
         {
           'active' : false,
@@ -36,6 +37,78 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory) 
           'active' : false,
           'name' : 'Nidrax',
           'id' : 4,
+          'message' : [
+          ],
+          'connected' : true
+        },
+        {
+          'active' : false,
+          'name' : 'michel',
+          'id' : 5,
+          'message' : [
+          ],
+          'connected' : true
+        },
+        {
+          'active' : false,
+          'name' : 'clara',
+          'id' : 6,
+          'message' : [
+          ],
+          'connected' : true
+        },
+        {
+          'active' : false,
+          'name' : 'caca',
+          'id' : 7,
+          'message' : [
+          ],
+          'connected' : true
+        },
+        {
+          'active' : false,
+          'name' : 'dede',
+          'id' : 8,
+          'message' : [
+          ],
+          'connected' : true
+        },
+        {
+          'active' : false,
+          'name' : 'aaze',
+          'id' : 9,
+          'message' : [
+          ],
+          'connected' : true
+        },
+        {
+          'active' : false,
+          'name' : 'pepe',
+          'id' : 10,
+          'message' : [
+          ],
+          'connected' : true
+        },
+        {
+          'active' : false,
+          'name' : 'Nini',
+          'id' : 11,
+          'message' : [
+          ],
+          'connected' : true
+        },
+        {
+          'active' : false,
+          'name' : 'LOLe',
+          'id' : 12,
+          'message' : [
+          ],
+          'connected' : true
+        },
+        {
+          'active' : false,
+          'name' : 'MOIKL',
+          'id' : 13,
           'message' : [
           ],
           'connected' : true
@@ -104,9 +177,35 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory) 
     }
 
     $scope.open = function (val) {
-        $scope.friendlist[val].active = $scope.friendlist[val].active ? false : true;
+      var need_to_create = true;
+      if ($scope.messageList.length === 0) {
+        var object_message = {
+          id: val,
+          active: true
+        }
+        $scope.messageList.push(object_message);
         $scope.roundedNotif[val] = false;
         $scope.renewValue[val] = 0;
+      }
+      else {
+        angular.forEach($scope.messageList, function(value, key) {
+          if (value.id === val) {
+            need_to_create = false;
+          }
+        });
+        if (need_to_create) {
+          var objet = {
+            id: val,
+            active: true
+          }
+          $scope.messageList.push(objet);
+          $scope.roundedNotif[val] = false;
+          $scope.renewValue[val] = 0;
+          objet = null;
+        }
+
+      }
+      console.log($scope.messageList);
     }
 
     $scope.swap = function (val) {
