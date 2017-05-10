@@ -9,7 +9,7 @@
 
 var app = angular.module('naview');
 
-function NavRightController($scope, $http, API, $location, auth, socketFactory) {
+function NavRightController($scope, $http, API, $location, auth, socketFactory, $q) {
     // récuperation version from package.json
     var pjson = require('./package.json');
 
@@ -40,80 +40,12 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory) 
           'message' : [
           ],
           'connected' : true
-        },
-        {
-          'active' : false,
-          'name' : 'michel',
-          'id' : 5,
-          'message' : [
-          ],
-          'connected' : true
-        },
-        {
-          'active' : false,
-          'name' : 'clara',
-          'id' : 6,
-          'message' : [
-          ],
-          'connected' : true
-        },
-        {
-          'active' : false,
-          'name' : 'caca',
-          'id' : 7,
-          'message' : [
-          ],
-          'connected' : true
-        },
-        {
-          'active' : false,
-          'name' : 'dede',
-          'id' : 8,
-          'message' : [
-          ],
-          'connected' : true
-        },
-        {
-          'active' : false,
-          'name' : 'aaze',
-          'id' : 9,
-          'message' : [
-          ],
-          'connected' : true
-        },
-        {
-          'active' : false,
-          'name' : 'pepe',
-          'id' : 10,
-          'message' : [
-          ],
-          'connected' : true
-        },
-        {
-          'active' : false,
-          'name' : 'Nini',
-          'id' : 11,
-          'message' : [
-          ],
-          'connected' : true
-        },
-        {
-          'active' : false,
-          'name' : 'LOLe',
-          'id' : 12,
-          'message' : [
-          ],
-          'connected' : true
-        },
-        {
-          'active' : false,
-          'name' : 'MOIKL',
-          'id' : 13,
-          'message' : [
-          ],
-          'connected' : true
         }
       ];
+
+    $scope.activeMessage = function(id) {
+      $scope.messageList[id].active = !$scope.messageList[id].active;
+    };
 
     const messages = ['Salut comment ça va et toi ?', 'Tu as essayé la nouvelle application de Naview ?', 'Demain je serais dispo si tu veux te faire une petite aprem sur Naview', 'MDR', 'Trop Cool',
     "C'est du tonnerre"];
@@ -124,7 +56,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory) 
 
     // DEMOs
     setInterval(function (){
-      // $scope.receiveRandomMessage();
+      $scope.receiveRandomMessage();
       $scope.$apply();
     }, Math.round(Math.random() * (3000 - 500)) + 1500);
 
@@ -155,57 +87,82 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory) 
       })
     };
 
-
-    $scope.sendMessage = function (val) {
-      if ($scope.messageToSend[val] !== "") {
-        $scope.friendlist[val].message.push( {
-            'text' : $scope.messageToSend[val],
-            'date' : Date.now(),
-            'id' : $scope.myFakeID
+    function getInfos(id) {
+      var deferred = $q.defer();
+      var getValue = false;
+      var toSend, keyToSend;
+      angular.forEach($scope.friendlist, function (value, key) {
+        if (value.id === id) {
+          getValue = true;
+          toSend = [value, key];
         }
-        );
-        socketFactory.emit('user:message', { pseudo: $scope.myFakeID, message: $scope.messageToSend[val]})
-        $scope.messageToSend[val] = "";
+      });
+      if (getValue) {
+        deferred.resolve(toSend);
       }
+      else {
+        deferred.reject('What happened');
+      }
+      return deferred.promise;
     }
 
-    $scope.closealltabs = function (val) {
-      angular.forEach($scope.friendlist, function (value, key) {
-        if (val !== key)
-          $scope.friendlist[key].active = false;
+
+    $scope.sendMessage = function (val) {
+      var promise = getInfos(val);
+      promise.then(function(user_info) {
+        // if input message not empty
+        if ($scope.messageToSend[user_info[1]] !== "") {
+            $scope.friendlist[user_info[1]].message.push({
+              'text' : $scope.messageToSend[user_info[1]],
+              'date' : Date.now(),
+              'id' : $scope.myFakeID
+            }
+          );
+          console.log($scope.friendlist[user_info[1]]);
+          socketFactory.emit('user:message', { pseudo: $scope.myFakeID, message: $scope.messageToSend[user_info[1]]})
+          $scope.messageToSend[user_info[1]] = "";
+        }
       });
     }
 
     $scope.open = function (val) {
-      var need_to_create = true;
-      if ($scope.messageList.length === 0) {
-        var object_message = {
-          id: val,
-          active: true
-        }
-        $scope.messageList.push(object_message);
-        $scope.roundedNotif[val] = false;
-        $scope.renewValue[val] = 0;
-      }
-      else {
-        angular.forEach($scope.messageList, function(value, key) {
-          if (value.id === val) {
-            need_to_create = false;
-          }
-        });
-        if (need_to_create) {
-          var objet = {
+      var promise = getInfos(val);
+      promise.then(function(user_info) {
+        var need_to_create = true;
+        if ($scope.messageList.length === 0) {
+          var object_message = {
             id: val,
-            active: true
+            active: true,
+            name: user_info[0].name,
+            message: user_info[0].message
           }
-          $scope.messageList.push(objet);
-          $scope.roundedNotif[val] = false;
-          $scope.renewValue[val] = 0;
-          objet = null;
+          $scope.messageList.push(object_message);
+          $scope.roundedNotif[user_info[1]] = false;
+          $scope.renewValue[user_info[1]] = 0;
         }
-
-      }
-      console.log($scope.messageList);
+        else {
+          angular.forEach($scope.messageList, function(value, key) {
+            if (value.id === val) {
+              need_to_create = false;
+              $scope.messageList[key].active = !$scope.messageList[key].active;
+            }
+          });
+          if (need_to_create) {
+            var objet = {
+              id: val,
+              active: true,
+              name: user_info[0].name,
+              message: user_info[0].message
+            }
+            $scope.messageList.push(objet);
+            objet = null;
+          }
+          $scope.roundedNotif[user_info[1]] = false;
+          $scope.renewValue[user_info[1]] = 0;
+        }
+      }, function(reason) {
+        console.log('Failed: ' + reason);
+      });
     }
 
     $scope.swap = function (val) {
@@ -248,4 +205,4 @@ app.directive('ngEnter', function () {
 });
 
 
-app.controller('NavRightController', ['$scope', '$http', 'API', '$location', 'auth', 'socketFactory' , NavRightController]);
+app.controller('NavRightController', ['$scope', '$http', 'API', '$location', 'auth', 'socketFactory', '$q' , NavRightController]);

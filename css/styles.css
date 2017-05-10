@@ -157,29 +157,33 @@ img[src$=".gif"], img[src$=".png"] {
 .friend-name {
   font-family: "Oxygen", sans-serif;
   color: #afa8a8;
+  text-transform: capitalize;
+}
+
+.vertical-align {
+  height: 50px;
+  line-height: 50px;
 }
 
 .message-row {
   overflow: scroll;
-  height: 480px;
 }
 
 .messages {
   position: fixed;
   left: 0;
   bottom: 0;
-  height: 40px;
+  height: 30px;
 }
 
 .message-box {
-  height: 350px;
+  margin-left: 3px;
+  margin-right: 3px;
   background-color: #121317;
   border: 1px solid #afa8a8;
 }
 
 .bottom-box-message {
-  position: absolute;
-  bottom: 0;
   left: 0;
 }
 
@@ -194,12 +198,13 @@ textarea {
 
 .rounded-notif {
   color: white;
-  font-family: sans-serif;
-  font-size: 12px;
+  font-family: Arial;
+  font-size: 10px;
   position: absolute;
   text-align: center;
-  top: -5px;
-  left: 15px;
+  top: 4px;
+  left: 14px;
+  line-height: 17px;
   border-radius: 50%;
   width: 18px;
   height: 18px;
@@ -211,22 +216,34 @@ textarea {
 }
 
 .top-box-message {
-  position: absolute;
   overflow-y: scroll;
-  height: 80%;
-  top: 10%;
+  height: 270px;
+  top: 32px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.translate {
+  transition: 0.2s all;
+  top: 0px;
+}
+
+.actived {
+  top: -308px;
 }
 
 .name-top {
   font-family: 'Oxygen', sans-serif;
-  font-size: 17px;
+  font-size: 15px;
   text-align: center;
   color: white;
-  background-color: #2196f3;
-  position: absolute;
+  background-color: rgba(33, 150, 243, 0.45);
+  position: relative;
+  padding: 0px;
   top: 0;
-  padding-top: 5px;
-  height: 10%;
+  border: 1px solid black;
+  line-height: 30px;
+  cursor: pointer;
+  text-transform: capitalize;
 }
 
 .msg-view {
@@ -234,6 +251,7 @@ textarea {
   background-color: #196caf;
   padding: 5px;
   color: white;
+  font-size: 12px;
   font-family: 'Raleway', sans-serif;
 }
 
@@ -280,8 +298,11 @@ i {
 }
 
 .friend {
-  padding-bottom: 10px;
-  padding-top: 10px;
+  cursor: pointer;
+}
+
+.friend > * > * > *, .friend > * > * , .friend > * > * > * > span   {
+  cursor: pointer;
 }
 
 .friend:hover {
@@ -378,7 +399,7 @@ i {
 
 .right {
   background-color: #121317;
-  position: absolute;
+  position: fixed;
   z-index: 2000;
   top: 0;
   bottom: 0;
