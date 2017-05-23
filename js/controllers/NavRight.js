@@ -9,7 +9,7 @@
 
 var app = angular.module('naview');
 
-function NavRightController($scope, $http, API, $location, auth, socketFactory, $q) {
+function NavRightController($scope, $http, API, $location, auth, socketFactory, $q, $window) {
     // récuperation version from package.json
     var pjson = require('./package.json');
 
@@ -18,34 +18,68 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     $scope.friendsActive = "active";
     $scope.messages = [];
     $scope.friends = true;
-    $scope.myFakeID = "2";
+    $scope.user = auth.getUser();
     $scope.messageToSend = [];
     $scope.roundedNotif = [];
     $scope.numberNotif = [];
     $scope.renewValue = [];
     $scope.messageList = [];
-    $scope.friendlist = [
-        {
-          'active' : false,
-          'name' : 'Vincent',
-          'id' : 3,
-          'message' : [
-          ],
-          'connected' : true
-        },
-        {
-          'active' : false,
-          'name' : 'Nidrax',
-          'id' : 4,
-          'message' : [
-          ],
-          'connected' : true
-        }
-      ];
+    // [
+    //     {
+    //       'active' : false,
+    //       'name' : 'Vincent',
+    //       'id' : 3,
+    //       'message' : [
+    //       ],
+    //       'connected' : true
+    //     },
+    //     {
+    //       'active' : false,
+    //       'name' : 'Nidrax',
+    //       'id' : 4,
+    //       'message' : [
+    //       ],
+    //       'connected' : true
+    //     }
+    //   ];
+    socketFactory.on('connect', function(){
+        socketFactory.emit('authenticate', {token: auth.getToken()}); //send the jwt
+        socketFactory.on('authenticated', function () {
+          socketFactory.emit('user:login', auth.getUser());
+        });
+        socketFactory.on('unauthorized', function(msg) {
+          console.log("unauthorized: " + JSON.stringify(msg.data.message));
+        });
+
+
+      });
 
     $scope.activeMessage = function(id) {
       $scope.messageList[id].active = !$scope.messageList[id].active;
     };
+
+    socketFactory.on('send:users', function(users){
+      console.log(users);
+      $scope.friendlist = users;
+    });
+
+    socketFactory.on('new:connection', function(users){
+      $scope.friendlist = users;
+    });
+
+    socketFactory.on('send:message', function(message){
+      console.log(message);
+      var promise = getInfos(message.pseudo);
+      promise.then(function(user_info) {
+        $scope.friendlist[user_info[1]].message.push({
+          'text' : message.message,
+          'date' : message.date,
+          '_id' : message.pseudo
+        });
+        $scope.roundedNotif[message.pseudo] = true;
+        $scope.numberNotif[message.pseudo]++;
+      });
+    });
 
     const messages = ['Salut comment ça va et toi ?', 'Tu as essayé la nouvelle application de Naview ?', 'Demain je serais dispo si tu veux te faire une petite aprem sur Naview', 'MDR', 'Trop Cool',
     "C'est du tonnerre"];
@@ -56,21 +90,21 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
 
     // DEMOs
     setInterval(function (){
-      $scope.receiveRandomMessage();
-      $scope.$apply();
+      // $scope.receiveRandomMessage();
+      // $scope.$apply();
     }, Math.round(Math.random() * (3000 - 500)) + 1500);
-
-    $scope.$watch('friendlist', function(newNames, oldNames) {
-      angular.forEach(newNames, function (value, i) {
-        if ($scope.renewValue[i] === 0)
-          $scope.renewValue[i] = oldNames[i].message.length;
-        if (value.message.length !== oldNames[i].message.length && !value.active) {
-          $scope.roundedNotif[i] = true;
-          $scope.numberNotif[i]++;
-          doNotify(value.name);
-        }
-      });
-    }, true);
+    //
+    // $scope.$watch('friendlist', function(newNames, oldNames) {
+    //   angular.forEach(newNames, function (value, i) {
+    //     if ($scope.renewValue[i] === 0)
+    //       $scope.renewValue[i] = oldNames[i].message.length;
+    //     if (value.message.length !== oldNames[i].message.length && !value.active) {
+    //       $scope.roundedNotif[i] = true;
+    //       $scope.numberNotif[i]++;
+    //       doNotify(value.name);
+    //     }
+    //   });
+    // }, true);
 
     $scope.receiveRandomMessage = function () {
       var user = $scope.friendlist[Math.floor(Math.random()*$scope.friendlist.length)];
@@ -92,7 +126,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       var getValue = false;
       var toSend, keyToSend;
       angular.forEach($scope.friendlist, function (value, key) {
-        if (value.id === id) {
+        if (value._id === id) {
           getValue = true;
           toSend = [value, key];
         }
@@ -111,16 +145,14 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       var promise = getInfos(val);
       promise.then(function(user_info) {
         // if input message not empty
-        if ($scope.messageToSend[user_info[1]] !== "") {
+        if ($scope.messageToSend[val] !== "") {
             $scope.friendlist[user_info[1]].message.push({
-              'text' : $scope.messageToSend[user_info[1]],
+              'text' : $scope.messageToSend[val],
               'date' : Date.now(),
-              'id' : $scope.myFakeID
-            }
-          );
-          console.log($scope.friendlist[user_info[1]]);
-          socketFactory.emit('user:message', { pseudo: $scope.myFakeID, message: $scope.messageToSend[user_info[1]]})
-          $scope.messageToSend[user_info[1]] = "";
+              '_id' : $scope.user._id
+            });
+          socketFactory.emit('user:message', { pseudo: $scope.user._id, message: $scope.messageToSend[val], socket_id: $scope.friendlist[user_info[1]].socket_id});
+          $scope.messageToSend[val] = "";
         }
       });
     }
@@ -131,34 +163,34 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
         var need_to_create = true;
         if ($scope.messageList.length === 0) {
           var object_message = {
-            id: val,
+            _id: val,
             active: true,
-            name: user_info[0].name,
+            username: user_info[0].username,
             message: user_info[0].message
           }
           $scope.messageList.push(object_message);
-          $scope.roundedNotif[user_info[1]] = false;
-          $scope.renewValue[user_info[1]] = 0;
+          $scope.roundedNotif[val] = false;
+          $scope.renewValue[val] = 0;
         }
         else {
           angular.forEach($scope.messageList, function(value, key) {
-            if (value.id === val) {
+            if (value._id === val) {
               need_to_create = false;
               $scope.messageList[key].active = !$scope.messageList[key].active;
             }
           });
           if (need_to_create) {
             var objet = {
-              id: val,
+              _id: val,
               active: true,
-              name: user_info[0].name,
+              username: user_info[0].username,
               message: user_info[0].message
             }
             $scope.messageList.push(objet);
             objet = null;
           }
-          $scope.roundedNotif[user_info[1]] = false;
-          $scope.renewValue[user_info[1]] = 0;
+          $scope.roundedNotif[val] = false;
+          $scope.renewValue[val] = 0;
         }
       }, function(reason) {
         console.log('Failed: ' + reason);
@@ -181,8 +213,10 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     }
 
     $scope.logout = function () {
+      socketFactory.emit("user:disconnect", auth.getUser());
       auth.logout();
       $location.url("/");
+      $window.location.reload();
     };
     $scope.settings = function () {
       $location.url("/settings");
@@ -205,4 +239,4 @@ app.directive('ngEnter', function () {
 });
 
 
-app.controller('NavRightController', ['$scope', '$http', 'API', '$location', 'auth', 'socketFactory', '$q' , NavRightController]);
+app.controller('NavRightController', ['$scope', '$http', 'API', '$location', 'auth', 'socketFactory', '$q', '$window' , NavRightController]);

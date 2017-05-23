@@ -12,6 +12,8 @@
           <span class="version">Naview </span>
           <br>
           <span class="version2">Alpha build {{version}}</span>
+          <br>
+          <span class="version2">{{user.username}}</span>
         </div>
       </div>
     </div>
@@ -31,15 +33,15 @@
         </div>
         <div class="row message-row" set-height ng-show="friends">
           <div class="col-sm-12 friend" ng-repeat="friend in friendlist track by $index">
-            <div class="row vertical-align" ng-click="open(friend.id);">
+            <div class="row vertical-align" ng-if="friend._id != user._id" ng-click="open(friend._id);">
               <div class="col-sm-3">
                 <img src="images/users-logo/user.png" alt="avatar" class="size-avatar">
-                <div class="rounded-notif" ng-if="roundedNotif[$index] === true" ng-init="renewValue[$index] = 1; numberNotif[$index] = 1">
-                  {{numberNotif[$index]}}
+                <div class="rounded-notif" ng-if="roundedNotif[friend._id] === true" ng-init="renewValue[friend._id] = 1; numberNotif[friend._id] = 1">
+                  {{numberNotif[friend._id]}}
                 </div>
               </div>
               <div class="col-sm-6">
-                  <span class="friend-name">{{friend.name}}</span>
+                  <span class="friend-name">{{friend.username}}</span>
               </div>
               <div class="col-sm-3">
                 <div class="row">
@@ -74,7 +76,7 @@
     <div class="messages col-md-9 col-sm-9 col-lg-10">
       <div class="col-md-3 col-lg-3 translate" ng-class="{'actived': message.active}" ng-repeat="message in messageList track by $index">
           <div class="name-top w100" ng-click="activeMessage($index)">
-            {{message.name}}
+            {{message.username}}
           </div>
 
         <div class="top-box-message w100" scroll-glue ng-if="message.active">
@@ -82,16 +84,16 @@
 
           </div>
           <div class="w100" ng-repeat="msg in message.message" >
-            <div class="msg-view col-sm-push-1 col-sm-7" ng-if="msg.id !== myFakeID">
+            <div class="msg-view col-sm-push-1 col-sm-7" ng-if="msg._id !== user._id">
               {{msg.text}}
             </div>
-            <div class="col-sm-2 col-sm-push-1 white" ng-if="msg.id === myFakeID">
+            <div class="col-sm-2 col-sm-push-1 white" ng-if="msg._id === user._id">
               {{msg.date | date : "HH:mm"}}
             </div>
-            <div class="col-sm-2 col-sm-push-1 white" ng-if="msg.id !== myFakeID">
+            <div class="col-sm-2 col-sm-push-1 white" ng-if="msg._id !== user._id">
               {{msg.date | date : "HH:mm"}}
             </div>
-            <div class="msg-view col-sm-push-3 col-sm-6 myself" ng-if="msg.id === myFakeID">
+            <div class="msg-view col-sm-push-3 col-sm-6 myself" ng-if="msg._id === user._id">
               {{msg.text}}
             </div>
             <div class="clearfix">
@@ -105,7 +107,7 @@
         <div class="bottom-box-message w100" ng-if="message.active">
           <div class="col-sm-12">
             <div class="row">
-              <textarea ng-model="messageToSend[$index]" placeholder="Write a message..." ng-enter="sendMessage(message.id)" class="form-control message-input" name="taname" id="taid" cols="35" wrap="soft"></textarea>
+              <textarea ng-model="messageToSend[message._id]" placeholder="Write a message..." ng-enter="sendMessage(message._id)" class="form-control message-input" name="taname" id="taid" cols="35" wrap="soft"></textarea>
             </div>
           </div>
         </div>
