@@ -44,12 +44,16 @@
                   <span class="friend-name">{{friend.username}}</span>
               </div>
               <div class="col-sm-3">
-                <div class="row">
+                <div class="row" ng-if="friend.online">
                   <span class="green">Online</span>
                 </div>
               </div>
             </div>
           </div>
+            <div class="form-inline">
+               {{ messageFriendError }}
+              <input placeholder="Username..." ng-model="friendUsername" ng-enter="addFriend(friendUsername)" class="form-control message-input" name="taname" />
+            </div>
         </div>
         <div class="row" ng-show="news">
           <div class="col-sm-12 news">

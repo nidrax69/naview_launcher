@@ -40,19 +40,37 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     //       'message' : [
     //       ],
     //       'connected' : true
-    //     }
+    //     }h
     //   ];
-    socketFactory.on('connect', function(){
+    socketFactory.on('connect', function() {
         socketFactory.emit('authenticate', {token: auth.getToken()}); //send the jwt
-        socketFactory.on('authenticated', function () {
+        // socketFactory.on('authenticated', function () {
           socketFactory.emit('user:login', auth.getUser());
-        });
+        // });
         socketFactory.on('unauthorized', function(msg) {
           console.log("unauthorized: " + JSON.stringify(msg.data.message));
         });
+    });
+    $scope.friendlist= [];
 
+    $scope.addFriend = function(el) {
+      socketFactory.emit('friend:add', el);
+    };
 
-      });
+    socketFactory.on('friend:add', (user) => {
+      $scope.messageFriendError = "";
+      for (let id in $scope.friendlist)
+        if ($scope.friendlist[id]._id == user._id) {
+          $scope.friendlist[id] = user;
+          return ;
+        }
+      $scope.friendlist.push(user)
+    });
+
+    $scope.messageFriendError = "";
+    socketFactory.on('friend:error', (err) => {
+      $scope.messageFriendError = err;
+    });
 
     $scope.activeMessage = function(id) {
       $scope.messageList[id].active = !$scope.messageList[id].active;
