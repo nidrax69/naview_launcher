@@ -24,24 +24,8 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     $scope.numberNotif = [];
     $scope.renewValue = [];
     $scope.messageList = [];
-    // [
-    //     {
-    //       'active' : false,
-    //       'name' : 'Vincent',
-    //       'id' : 3,
-    //       'message' : [
-    //       ],
-    //       'connected' : true
-    //     },
-    //     {
-    //       'active' : false,
-    //       'name' : 'Nidrax',
-    //       'id' : 4,
-    //       'message' : [
-    //       ],
-    //       'connected' : true
-    //     }
-    //   ];
+
+    // Authentification on the server
     socketFactory.on('connect', function(){
         socketFactory.emit('authenticate', {token: auth.getToken()}); //send the jwt
         socketFactory.on('authenticated', function () {
@@ -58,15 +42,18 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       $scope.messageList[id].active = !$scope.messageList[id].active;
     };
 
+    // Listening on the server to receive users connected
     socketFactory.on('send:users', function(users){
       console.log(users);
       $scope.friendlist = users;
     });
 
+    // Listening on the Server,  inform that a new user is connected
     socketFactory.on('new:connection', function(users){
       $scope.friendlist = users;
     });
 
+    // Listening on messages coming from the server
     socketFactory.on('send:message', function(message){
       console.log(message);
       var promise = getInfos(message.pseudo);
@@ -81,46 +68,12 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       });
     });
 
-    const messages = ['Salut comment ça va et toi ?', 'Tu as essayé la nouvelle application de Naview ?', 'Demain je serais dispo si tu veux te faire une petite aprem sur Naview', 'MDR', 'Trop Cool',
-    "C'est du tonnerre"];
-
+    // Check if authenticated on the Angular APP
     $scope.isAuthed = function () {
       return auth.isAuthed ? auth.isAuthed() : false;
     };
 
-    // DEMOs
-    setInterval(function (){
-      // $scope.receiveRandomMessage();
-      // $scope.$apply();
-    }, Math.round(Math.random() * (3000 - 500)) + 1500);
-    //
-    // $scope.$watch('friendlist', function(newNames, oldNames) {
-    //   angular.forEach(newNames, function (value, i) {
-    //     if ($scope.renewValue[i] === 0)
-    //       $scope.renewValue[i] = oldNames[i].message.length;
-    //     if (value.message.length !== oldNames[i].message.length && !value.active) {
-    //       $scope.roundedNotif[i] = true;
-    //       $scope.numberNotif[i]++;
-    //       doNotify(value.name);
-    //     }
-    //   });
-    // }, true);
-
-    $scope.receiveRandomMessage = function () {
-      var user = $scope.friendlist[Math.floor(Math.random()*$scope.friendlist.length)];
-
-      angular.forEach($scope.friendlist, function (value, key) {
-        var messagelol = messages[Math.round(Math.random()*messages.length)];
-        if (value.id === user.id) {
-          $scope.friendlist[key].message.push({
-              'text' : messagelol,
-              'date' : Date.now(),
-              'id' : user.id
-          });
-        }
-      })
-    };
-
+    // Get information on a user with an id
     function getInfos(id) {
       var deferred = $q.defer();
       var getValue = false;
@@ -140,7 +93,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       return deferred.promise;
     }
 
-
+    // Send a message to an user connected to the server
     $scope.sendMessage = function (val) {
       var promise = getInfos(val);
       promise.then(function(user_info) {
@@ -157,6 +110,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       });
     }
 
+    // Open message box for the chat application
     $scope.open = function (val) {
       var promise = getInfos(val);
       promise.then(function(user_info) {
@@ -197,6 +151,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       });
     }
 
+    // swap between News or Chat function
     $scope.swap = function (val) {
       if (val === 1) {
         $scope.newsActive = "";
@@ -212,6 +167,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       }
     }
 
+    // Emit message to the server to inform that the current user is disconnected.
     $scope.logout = function () {
       socketFactory.emit("user:disconnect", auth.getUser());
       auth.logout();
@@ -223,7 +179,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     };
 }
 
-
+// Press enter > Send Message
 app.directive('ngEnter', function () {
     return function (scope, element, attrs) {
         element.bind("keydown keypress", function (event) {

@@ -4,7 +4,6 @@ var app = angular.module('naview');
 app.factory('socketFactory', function(API, auth, $rootScope){
     //Creating connection with server
     var socket = io.connect(API, {'forceNew': true});
-    console.log("lel");
     return {
        on: function (eventName, callback) {
            socket.on(eventName, function () {
