@@ -15,8 +15,8 @@ function createWindow () {
   // Size of the screen
   const {width, height} = electron.screen.getPrimaryDisplay().workAreaSize;
   // Create the browser window.
-  var width_final = Math.floor(width / 1.2);
-  var height_final = Math.floor(height / 1.2);
+  var width_final = Math.floor(width / 1.2)
+  var height_final = Math.floor(height / 1.2)
 
   mainWindow = new BrowserWindow(
   {
@@ -27,13 +27,13 @@ function createWindow () {
     titleBarStyle: 'hidden',
     frame: false,
     icon: __dirname + '/images/ico/new2.ico'
-  });
+  })
 
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/index.html');
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {

@@ -34,7 +34,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
           console.log("unauthorized: " + JSON.stringify(msg.data.message));
         });
     });
-    
+
     $scope.friendlist= [];
 
     $scope.addFriend = function(el) {
@@ -42,9 +42,11 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     };
 
     socketFactory.on('friend:add', (user) => {
+      console.log(user);
       $scope.messageFriendError = "";
       for (let id in $scope.friendlist)
         if ($scope.friendlist[id]._id == user._id) {
+          console.log(user);
           $scope.friendlist[id] = user;
           return ;
         }
