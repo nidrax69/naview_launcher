@@ -26,11 +26,11 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     $scope.messageList = [];
 
     socketFactory.on('connect', function() {
-        socketFactory.emit('authenticate', {token: auth.getToken()}); //send the jwt
-        socketFactory.on('authenticated', function () {
+        // socketFactory.emit('authenticate', {token: auth.getToken()}); //send the jwt
+        //socketFactory.on('authenticated', function () {
 
           socketFactory.emit('user:login', auth.getUser());
-        });
+        //});
         socketFactory.on('unauthorized', function(msg) {
           console.log("unauthorized: " + JSON.stringify(msg.data.message));
         });
@@ -43,11 +43,10 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     };
 
     socketFactory.on('friend:add', (user) => {
-      console.log(user);
+      user.message = [];
       $scope.messageFriendError = "";
       for (let id in $scope.friendlist)
         if ($scope.friendlist[id]._id == user._id) {
-          console.log(user);
           $scope.friendlist[id] = user;
           return ;
         }
@@ -76,8 +75,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
 
     // Listening on messages coming from the server
     socketFactory.on('send:message', function(message){
-      console.log(message);
-      var promise = getInfos(message.pseudo);
+      var promise = getInfosByPseudo(message.pseudo);
       promise.then(function(user_info) {
         $scope.friendlist[user_info[1]].message.push({
           'text' : message.message,
@@ -114,18 +112,39 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       return deferred.promise;
     }
 
+    // Get information on a user with a pseudo
+    function getInfosByPseudo(pseudo) {
+      var deferred = $q.defer();
+      var getValue = false;
+      var toSend, keyToSend;
+      angular.forEach($scope.friendlist, function (value, key) {
+        if (value.username === pseudo) {
+          getValue = true;
+          toSend = [value, key];
+        }
+      });
+      if (getValue) {
+        deferred.resolve(toSend);
+      }
+      else {
+        deferred.reject('What happened');
+      }
+      return deferred.promise;
+    }
+
     // Send a message to an user connected to the server
     $scope.sendMessage = function (val) {
       var promise = getInfos(val);
       promise.then(function(user_info) {
         // if input message not empty
         if ($scope.messageToSend[val] !== "") {
+          console.log($scope.friendlist);
             $scope.friendlist[user_info[1]].message.push({
               'text' : $scope.messageToSend[val],
               'date' : Date.now(),
               '_id' : $scope.user._id
             });
-          socketFactory.emit('user:message', { pseudo: $scope.user._id, message: $scope.messageToSend[val], socket_id: $scope.friendlist[user_info[1]].socket_id});
+          socketFactory.emit('user:message', { pseudo: $scope.user.username, message: $scope.messageToSend[val], _id: user_info[0]._id});
           $scope.messageToSend[val] = "";
         }
       });
