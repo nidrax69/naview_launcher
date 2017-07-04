@@ -28,6 +28,8 @@ function CreateRoomController($scope, $http, API, $location, close, $element) {
 
   $scope.createRoom = function() {
     $scope.wait = 1;
+    delete $scope.room.designtype;
+    $scope.room.nbusermax = 10;
     $http({
       method: 'POST',
       url: API + '/room',

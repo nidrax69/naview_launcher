@@ -10,7 +10,7 @@
     "wiredep": "^4.0.0"
   },
   "devDependencies": {
-    "electron": "^1.7.2",
+    "electron": "^1.6.11",
     "electron-connect": "^0.6.1",
     "electron-cookies": "^1.1.0",
     "electron-packager": "^8.3.0",

@@ -28,6 +28,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     socketFactory.on('connect', function() {
         socketFactory.emit('authenticate', {token: auth.getToken()}); //send the jwt
         socketFactory.on('authenticated', function () {
+
           socketFactory.emit('user:login', auth.getUser());
         });
         socketFactory.on('unauthorized', function(msg) {

@@ -15,14 +15,15 @@
 </div>
 
 <div class="row bottom-room absolute w100">
-  <div class="col-sm-5" >
+  <div class="col-sm-4" >
     <div class="selected row" ng-repeat="room in rooms">
       <div class="col-sm-4">
         <img src="images/rooms/default.jpg" alt="default" class="img-responsive padding">
       </div>
       <div class="col-sm-8">
-        <h2 class="white">{{room.name}}</h2>
+        <h2 class="white">{{room.name}} <button type="button" name="Join" ng-click="join(room._id)" class="btn btn-success">JOIN</button></h2>
         <span class="white">Users connected : {{room.nbuser}}</span>
+
       </div>
     </div>
   </div>
