@@ -9,21 +9,75 @@
 
 var app = angular.module('naview');
 
-function JoinRoomController($scope, $http, API, $location, auth) {
+function JoinRoomController($scope, $http, API, $location, auth, ModalService) {
   var child = require('child_process').execFile;
   var user = auth.getUser();
-  console.log(user);
+
   var executablePath = "./client/Naview/WindowsNoEditor/Naview.exe";
 
   $scope.homepage = function () {
     $location.url("/homepage");
   };
 
-  $scope.join = function (room_id) {
-    var parameters = ["token=" + auth.getToken() + " " + "user_id=" + user._id + " " + "room_id=" + room_id];
-    child(executablePath, parameters,  function(err, data) {
-         console.log(err)
-         console.log(data.toString());
+  $scope.join = function (room) {
+    if (room.private) {
+      ModalService.showModal({
+        templateUrl: "src/passwordRoom.html",
+        controller: "PasswordRoomController"
+      }).then(function(modal) {
+       // The modal object has the element built, if this is a bootstrap modal
+       // you can call 'modal' to show it, if it's a custom modal just show or hide
+       // it as you need to.
+       modal.element.modal();
+       modal.close.then(function(result) {
+         var parameters = ["token=" + auth.getToken() + " " + "user_id=" + user._id + " " + "room_id=" + room._id];
+         child(executablePath, parameters,  function(err, data) {
+              console.log(err)
+              console.log(data.toString());
+         });
+      });
+    });
+    }
+    else {
+      var parameters = ["token=" + auth.getToken() + " " + "user_id=" + user._id + " " + "room_id=" + room._id];
+      child(executablePath, parameters,  function(err, data) {
+           console.log(err)
+           console.log(data.toString());
+      });
+    }
+  }
+
+  $scope.getFavorites = function () {
+    $http({
+      method: 'GET',
+      url: API + '/users/getfavories'
+    }).then(function successCallback(response) {
+      // this callback will be called asynchronously
+      // when the response is available
+      $scope.fav = response.data.favories;
+    }, function errorCallback(response) {
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+      console.log(response);
+    });
+  };
+
+  $scope.getFavorites();
+
+  $scope.addFavorites = function (room, i) {
+    $http({
+      method: 'POST',
+      url: API + '/users/addfavories',
+      data: {
+        idroom : room._id
+      }
+    }).then(function successCallback(response) {
+      // this callback will be called asynchronously
+      // when the response is available
+      $scope.rooms[i].fav = true;
+    }, function errorCallback(response) {
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
     });
   }
 
@@ -45,8 +99,14 @@ function JoinRoomController($scope, $http, API, $location, auth) {
       }).then(function successCallback(response) {
         // this callback will be called asynchronously
         // when the response is available
-        console.log(response.data);
         $scope.rooms = response.data;
+        angular.forEach($scope.rooms, function(value, key) {
+          angular.forEach($scope.fav, function(value2, key2) {
+            if (value._id === value2) {
+              $scope.rooms[key].fav = true;
+            }
+          });
+        });
       }, function errorCallback(response) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
@@ -56,4 +116,4 @@ function JoinRoomController($scope, $http, API, $location, auth) {
  };
 }
 
-app.controller('JoinRoomController', ['$scope', '$http', 'API', '$location', 'auth' , JoinRoomController]);
+app.controller('JoinRoomController', ['$scope', '$http', 'API', '$location', 'auth', 'ModalService' , JoinRoomController]);

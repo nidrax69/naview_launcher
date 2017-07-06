@@ -36,10 +36,14 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
         });
     });
 
+    if (socketFactory.connected()) {
+      socketFactory.emit('friend:get');
+    }
+
     $scope.friendlist= [];
 
-    $scope.addFriend = function(el) {
-      socketFactory.emit('friend:add', el);
+    $scope.addFriend = function() {
+      socketFactory.emit('friend:add', $scope.friendUsername);
     };
 
     socketFactory.on('friend:add', (user) => {
@@ -55,7 +59,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
 
     $scope.messageFriendError = "";
     socketFactory.on('friend:error', (err) => {
-      $scope.messageFriendError = err;
+      $scope.messageFriendError = "User not found";
     });
 
     $scope.activeMessage = function(id) {
@@ -82,8 +86,9 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
           'date' : message.date,
           '_id' : message.pseudo
         });
-        $scope.roundedNotif[message.pseudo] = true;
-        $scope.numberNotif[message.pseudo]++;
+        console.log(user_info[1]);
+        $scope.roundedNotif[user_info[0]._id] = true;
+        $scope.numberNotif[user_info[0]._id]++;
       });
     });
 
@@ -148,6 +153,11 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
           $scope.messageToSend[val] = "";
         }
       });
+    }
+
+    // Close message box for chat application
+    $scope.close = function (val) {
+      $scope.messageList.splice(val,1);
     }
 
     // Open message box for the chat application

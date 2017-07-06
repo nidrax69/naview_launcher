@@ -61,6 +61,16 @@ h2, span {
   color: #f0f0f0;
 }
 
+.btn-add {
+  border-radius: 0%;
+  height: 35px;
+  padding: 6px 7px;
+}
+
+.input-friend {
+  width: 70%;
+}
+
 .special2:hover {
   color: #f0f0f0;
 }
@@ -213,6 +223,25 @@ textarea {
 
 .espacement-mini {
   height: 10px;
+}
+
+.fav {
+  font-size: 30px;
+  float: right;
+  top: -40px;
+  color: grey;
+}
+
+.active-fav {
+  color : #f33f3f;
+}
+
+.right-cross {
+  padding: 0px 7px;
+  position: absolute;
+  right: 0;
+  font-size: 12px;
+  z-index: 9;
 }
 
 .top-box-message {

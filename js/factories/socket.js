@@ -22,6 +22,9 @@ app.factory('socketFactory', function(API, auth, $rootScope){
                    }
                });
            })
+       },
+       connected: function (callback) {
+         return socket.connected;
        }
    };
   //

@@ -68,6 +68,19 @@ angular.module('naview', [
           controller: 'JoinRoomController',
         }
       }
+    })
+    .state('roomfav', {
+      url: '/room/favorites',
+      views: {
+        "connected" : {
+          templateUrl : './src/friendlist.html',
+          controller : 'NavRightController'
+        },
+        "" : {
+          templateUrl: './src/favorites.html',
+          controller: 'JoinRoomController',
+        }
+      }
     });
 
 });

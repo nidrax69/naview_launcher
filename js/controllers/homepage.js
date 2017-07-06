@@ -20,6 +20,11 @@ function HomePageController($scope, $http, API, $location, $rootScope, ModalServ
   $scope.joinRoom = function () {
     $location.url("/room/join");
   }
+
+  $scope.favoriteRoom = function () {
+    $location.url("/room/favorites");
+  }
+
   $scope.createRoom = function () {
       ModalService.showModal({
         templateUrl: "src/createRoom.html",

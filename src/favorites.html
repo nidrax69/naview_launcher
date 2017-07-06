@@ -3,26 +3,19 @@
   <div class="back-homepage absolute">
     <button type="button" name="button" class="log-btn" ng-click="homepage()">Back to homepage</button>
   </div>
-  <div class="col-sm-5">
-    <div class="typeahead-demo">
-      <input type="text" class="index-search" placeholder="Search room" ng-model="search" ng-change="getRoom()" >
-      <i class="fa fa-search search-img"></i>
-    </div>
-  </div>
   <div class="col-sm-4 col-sm-offset-1">
-    <span class="recent-rooms">Recent Rooms</span>
+    <span class="recent-rooms">Favorites</span>
   </div>
 </div>
 
 <div class="row bottom-room absolute w100">
   <div class="col-sm-4" >
-    <div class="selected row" ng-repeat="room in rooms track by $index">
+    <div class="selected row" ng-repeat="room in rooms">
       <div class="col-sm-4">
         <img src="images/rooms/default.jpg" alt="default" class="img-responsive padding">
       </div>
       <div class="col-sm-8">
         <h2 class="white">{{room.name}} <button type="button" name="Join" ng-click="join(room)" class="btn btn-success">JOIN</button></h2>
-        <span class="glyphicon glyphicon-heart fav" ng-class="{'active-fav': room.fav}" ng-click="addFavorites(room,$index)" aria-hidden="true"></span>
         <span class="white">Users connected : {{room.nbuser}}</span>
 
       </div>
