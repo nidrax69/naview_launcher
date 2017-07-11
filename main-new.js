@@ -25,7 +25,7 @@ function createWindow () {
     resizable: false,
     fullscreenable: false,
     titleBarStyle: 'hidden',
-    frame: false,
+    frame: true,
     icon: __dirname + '/images/ico/new2.ico'
   })
 
