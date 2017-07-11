@@ -54,7 +54,7 @@ function JoinRoomController($scope, $http, API, $location, auth, ModalService) {
     }).then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
-      $scope.fav = response.data.favories;
+      $scope.fav = response.data.message;
     }, function errorCallback(response) {
       // called asynchronously if an error occurs
       // or server returns response with an error status.

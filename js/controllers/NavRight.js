@@ -24,6 +24,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     $scope.numberNotif = [];
     $scope.renewValue = [];
     $scope.messageList = [];
+    $scope.formData = {};
 
     socketFactory.on('connect', function() {
         // socketFactory.emit('authenticate', {token: auth.getToken()}); //send the jwt
@@ -43,7 +44,8 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     $scope.friendlist= [];
 
     $scope.addFriend = function() {
-      socketFactory.emit('friend:add', $scope.friendUsername);
+      console.log($scope.formData.username);
+      socketFactory.emit('friend:add', $scope.formData.username);
     };
 
     socketFactory.on('friend:add', (user) => {
