@@ -9,7 +9,7 @@
 
 var app = angular.module('naview');
 
-function ConnectController($scope, $http, API, $location, jwtHelper, auth, $rootScope) {
+function ConnectController($scope, $http, API, $location, jwtHelper, auth, $rootScope, $window, ModalService) {
   // variables init
   $scope.status = "Log in";
   $scope.wait = 0;
@@ -25,7 +25,15 @@ function ConnectController($scope, $http, API, $location, jwtHelper, auth, $root
       $location.path("homepage");
     // }, 300);
   }
+  $scope.TwitterAuth = function() {
+    console.log('TwitterAuth');
+    window.open('http://localhost:3000/users/auth/twitter');
+  };
 
+  $scope.FbAuth = function() {
+    console.log('FBAuth');
+    $window.open('http://localhost:3000/users/auth/facebook');
+  };
   // log to app
   $scope.log = function () {
     $scope.wait = 1;
@@ -72,4 +80,4 @@ function ConnectController($scope, $http, API, $location, jwtHelper, auth, $root
   }
 };
 
-app.controller('ConnectController', ['$scope', '$http', 'API', '$location', 'jwtHelper', 'auth', '$rootScope' , ConnectController]);
+app.controller('ConnectController', ['$scope', '$http', 'API', '$location', 'jwtHelper', 'auth', '$rootScope', '$window' , "ModalService",  ConnectController]);
