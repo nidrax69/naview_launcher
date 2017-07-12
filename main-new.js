@@ -22,11 +22,14 @@ function createWindow () {
   {
     width: width_final,
     height: height_final,
-    resizable: false,
-    fullscreenable: false,
+    resizable: true,
+    fullscreenable: true,
     titleBarStyle: 'hidden',
     frame: true,
-    icon: __dirname + '/images/ico/new2.ico'
+    icon: __dirname + '/images/ico/new2.ico',
+    webPreferences: {
+      nativeWindowOpen: true
+    }
   })
 
   // and load the index.html of the app.
@@ -41,6 +44,10 @@ function createWindow () {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
+  })
+
+  mainWindow.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures) => {
+console.log("el");
   })
 }
 

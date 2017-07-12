@@ -9,11 +9,11 @@
 
 var app = angular.module('naview');
 
-function JoinRoomController($scope, $http, API, $location, auth, ModalService) {
+function JoinRoomController($scope, $http, API, $location, auth, ModalService, ClientURL) {
   var child = require('child_process').execFile;
   var user = auth.getUser();
 
-  var executablePath = "./client/Naview/WindowsNoEditor/Naview.exe";
+  var executablePath = ClientURL;
 
   $scope.homepage = function () {
     $location.url("/homepage");
@@ -23,7 +23,10 @@ function JoinRoomController($scope, $http, API, $location, auth, ModalService) {
     if (room.private) {
       ModalService.showModal({
         templateUrl: "src/passwordRoom.html",
-        controller: "PasswordRoomController"
+        controller: "PasswordRoomController",
+        inputs: {
+          idroom: room._id
+        }
       }).then(function(modal) {
        // The modal object has the element built, if this is a bootstrap modal
        // you can call 'modal' to show it, if it's a custom modal just show or hide
@@ -135,4 +138,4 @@ function JoinRoomController($scope, $http, API, $location, auth, ModalService) {
  };
 }
 
-app.controller('JoinRoomController', ['$scope', '$http', 'API', '$location', 'auth', 'ModalService' , JoinRoomController]);
+app.controller('JoinRoomController', ['$scope', '$http', 'API', '$location', 'auth', 'ModalService', 'ClientURL' , JoinRoomController]);
