@@ -10,13 +10,13 @@
 
 <div class="row bottom-room absolute w100">
   <div class="col-sm-4" >
-    <div class="selected row" ng-repeat="room in rooms">
+    <div class="selected row" ng-repeat="favori in fav">
       <div class="col-sm-4">
         <img src="images/rooms/default.jpg" alt="default" class="img-responsive padding">
       </div>
       <div class="col-sm-8">
-        <h2 class="white">{{room.name}} <button type="button" name="Join" ng-click="join(room)" class="btn btn-success">JOIN</button></h2>
-        <span class="white">Users connected : {{room.nbuser}}</span>
+        <h2 class="white">{{favori.name}} <button type="button" name="Join" ng-click="join(favori)" class="btn btn-success">JOIN</button></h2>
+        <span class="white">Users connected : {{favori.nbuser}}</span>
 
       </div>
     </div>

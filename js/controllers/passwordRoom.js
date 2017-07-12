@@ -9,7 +9,7 @@
 
 var app = angular.module('naview');
 
-function PasswordRoomController($scope, $http, API, $location, auth, ModalService) {
+function PasswordRoomController($scope, $http, API, $location, auth, ModalService, idroom, close, $element) {
     $scope.wait = 0;
 
     $scope.dismissModal = function () {
@@ -17,11 +17,16 @@ function PasswordRoomController($scope, $http, API, $location, auth, ModalServic
       close(null, 1000);
     };
 
+    console.log(idroom);
+    $scope.room = {};
+    $scope.room.idroom = idroom;
+
     $scope.enterPassword = function() {
+      console.log("lel");
       $scope.wait = 1;
       $http({
         method: 'POST',
-        url: API + '/room',
+        url: API + '/room/verifpassword',
         data: $scope.room,
         headers: {
             'Content-Type': 'application/json'
@@ -43,4 +48,4 @@ function PasswordRoomController($scope, $http, API, $location, auth, ModalServic
     }
 }
 
-app.controller('PasswordRoomController', ['$scope', '$http', 'API', '$location', 'auth', 'ModalService' , JoinRoomController]);
+app.controller('PasswordRoomController', ['$scope', '$http', 'API', '$location', 'auth', 'ModalService', 'idroom', 'close', '$element' , PasswordRoomController]);

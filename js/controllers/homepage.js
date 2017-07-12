@@ -15,7 +15,9 @@ function HomePageController($scope, $http, API, $location, $rootScope, ModalServ
   $scope.noAnom = "";
   $scope.count = 0;
   $rootScope.atlogin = false;
-  AOS.init();
+  AOS.init({
+    disable: 'mobile'
+  });
 
   $scope.joinRoom = function () {
     $location.url("/room/join");
