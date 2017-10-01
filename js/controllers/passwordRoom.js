@@ -34,10 +34,17 @@ function PasswordRoomController($scope, $http, API, $location, auth, ModalServic
       }).then(function successCallback(response) {
         // this callback will be called asynchronously
         // when the response is available
-        setTimeout(function (){
-          $scope.wait = 0;
-          $scope.dismissModal();
-        }, 2500);
+        if (!response.data.password) {
+          $scope.error = "Error password"
+          close("error", 1000);
+        }
+        else {
+          setTimeout(function (){
+            $scope.wait = 0;
+            $scope.dismissModal();
+          }, 2500);
+        }
+
       }, function errorCallback(response) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.

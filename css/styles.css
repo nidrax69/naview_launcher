@@ -20,8 +20,8 @@ input, button, textarea, :focus {
 }
 
 body {
-  background: #0e60c7;
-  background: url(../images/128-23.png), linear-gradient(#0e60c7, #212121);
+  background: #2f2f2f;
+  /*background: url(../images/128-23.png), linear-gradient(#212121, #212121);*/
 }
 
 html,
@@ -123,9 +123,42 @@ img[src$=".gif"], img[src$=".png"] {
   color: #585858;
 }
 
+.logologin {
+  font-size: 18px;
+  padding-top: 3px;
+  border-right: 1px solid;
+}
+
+.fontlogin {
+  font-family: Oxygen;
+}
+
 .version2 {
   font-size: 14px;
 }
+
+.signinInitialStep__divider {
+  text-align: center;
+  color: #fff;
+}
+
+.signinInitialStep__divider:before {
+    left: 0;
+}
+
+.signinInitialStep__divider:before, .signinInitialStep__divider:after {
+  display: inline-block;
+  width: 43%;
+  border-top: 1px solid #fff;
+  content: " ";
+  position: absolute;
+  margin-top: 9px;
+}
+
+.signinInitialStep__divider:after {
+    right: 0;
+}
+
 
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
   color: #fff;
@@ -696,7 +729,11 @@ form > .row > div.ng-hide {
 }
 
 .form-control.ng-invalid-required.ng-touched {
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+.form-control:focus {
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 0.6);
 }
 
 .form-style.ng-submitted > .form-group > .form-control.ng-invalid-required + .fa {

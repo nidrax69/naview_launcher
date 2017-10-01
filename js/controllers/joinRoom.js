@@ -33,11 +33,17 @@ function JoinRoomController($scope, $http, API, $location, auth, ModalService, C
        // it as you need to.
        modal.element.modal();
        modal.close.then(function(result) {
-         var parameters = ["token=" + auth.getToken() + " " + "user_id=" + user._id + " " + "room_id=" + room._id];
-         child(executablePath,  function(err, data) {
-              console.log(err)
-              console.log(data.toString());
-         });
+         if (result === "error") {
+
+         }
+         else {
+           var parameters = ["token=" + auth.getToken() + " " + "user_id=" + user._id + " " + "room_id=" + room._id];
+           child(executablePath,  function(err, data) {
+                console.log(err)
+                console.log(data.toString());
+           });
+         }
+
       });
     });
     }

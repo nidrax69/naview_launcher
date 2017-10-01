@@ -15,8 +15,8 @@ function createWindow () {
   // Size of the screen
   const {width, height} = electron.screen.getPrimaryDisplay().workAreaSize;
   // Create the browser window.
-  var width_final = Math.floor(width / 1.2)
-  var height_final = Math.floor(height / 1.2)
+  var width_final = Math.floor(width / 1)
+  var height_final = Math.floor(height / 1)
 
   mainWindow = new BrowserWindow(
   {
@@ -46,9 +46,6 @@ function createWindow () {
     mainWindow = null
   })
 
-  mainWindow.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures) => {
-console.log("el");
-  })
 }
 
 // This method will be called when Electron has finished

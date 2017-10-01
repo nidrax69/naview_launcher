@@ -28,13 +28,49 @@ function ConnectController($scope, $http, API, $location, jwtHelper, auth, $root
     // }, 300);
   }
   $scope.TwitterAuth = function() {
-    console.log('TwitterAuth');
-    $window.open(API + '/users/auth/twitter');
+    // console.log('TwitterAuth');
+    // $window.open(API + '/users/auth/twitter');
+    const remote = require('electron').remote;
+    const BrowserWindow = remote.BrowserWindow;
+    let mainWindow = BrowserWindow.getAllWindows();
+    var win = new BrowserWindow({
+        width: 800,
+        height: 600 ,
+        parent: mainWindow[0],
+        modal: true,
+        show: false,
+        webPreferences: {
+          nodeIntegration : false
+        }
+      });
+    win.loadURL(API + '/users/auth/twitter');
+    win.once('ready-to-show', () => {
+      win.show()
+    })
   };
 
   $scope.FbAuth = function() {
-    console.log('FBAuth');
-    $window.open(API + '/users/auth/facebook');
+
+    const remote = require('electron').remote;
+    const BrowserWindow = remote.BrowserWindow;
+    let mainWindow = BrowserWindow.getAllWindows();
+    var win = new BrowserWindow({
+        width: 800,
+        height: 600 ,
+        parent: mainWindow[0],
+        modal: true,
+        show: false,
+        webPreferences: {
+          nodeIntegration : false
+        }
+      });
+    win.loadURL(API + '/users/auth/facebook');
+    win.once('ready-to-show', () => {
+      win.show()
+    })
+
+    // console.log('FBAuth');
+    // $window.open(API + '/users/auth/facebook');
   };
   // log to app
   $scope.log = function () {
