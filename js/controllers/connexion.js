@@ -27,6 +27,9 @@ function ConnectController($scope, $http, API, $location, jwtHelper, auth, $root
       $location.path("homepage");
     // }, 300);
   }
+  else {
+    console.log("Token expired");
+  }
   $scope.TwitterAuth = function() {
     // console.log('TwitterAuth');
     // $window.open(API + '/users/auth/twitter');

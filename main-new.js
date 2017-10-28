@@ -15,8 +15,8 @@ function createWindow () {
   // Size of the screen
   const {width, height} = electron.screen.getPrimaryDisplay().workAreaSize;
   // Create the browser window.
-  var width_final = Math.floor(width / 1)
-  var height_final = Math.floor(height / 1)
+  var width_final = Math.floor(width / 1.2)
+  var height_final = Math.floor(height / 1.2)
 
   mainWindow = new BrowserWindow(
   {
