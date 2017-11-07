@@ -25,18 +25,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     $scope.numberNotif = [];
     $scope.renewValue = [];
     $scope.friendsReqs = [
-      { username : 'Vincent' },
-      { username : 'Nidrax' },
-      { username : 'Vincent' },
-      { username : 'Nidrax' },
-      { username : 'Vincent' },
-      { username : 'Nidrax' },
-      { username : 'Vincent' },
-      { username : 'Nidrax' },
-      { username : 'Vincent' },
-      { username : 'Nidrax' },
-      { username : 'Vincent' },
-      { username : 'Nidrax' },
+
     ];
     $scope.messageList = [];
     $scope.formData = {};
@@ -59,8 +48,11 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     $scope.friendlist= [];
 
     $scope.addFriend = function() {
-      console.log($scope.formData.username);
-      socketFactory.emit('friend:add', $scope.formData.username);
+      var data = {
+        'username' : $scope.user.username,
+        'usernameasked' : $scope.formData.username
+      }
+      socketFactory.emit('friend:add', data);
     };
 
     $scope.openNotif = function () {
@@ -70,7 +62,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
 
     socketFactory.on('friend:request', (user) => {
       console.log(user);
-      
+
     });
 
     socketFactory.on('friend:add', (user) => {
