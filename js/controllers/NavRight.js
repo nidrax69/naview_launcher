@@ -60,13 +60,18 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
 
     $scope.addFriend = function() {
       console.log($scope.formData.username);
-      //socketFactory.emit('friend:add', $scope.formData.username);
+      socketFactory.emit('friend:add', $scope.formData.username);
     };
 
     $scope.openNotif = function () {
       $scope.notifications = $scope.notifications ? false : true;
       $scope.friends = $scope.friends ? false : true;
     }
+
+    socketFactory.on('friend:request', (user) => {
+      console.log(user);
+      
+    });
 
     socketFactory.on('friend:add', (user) => {
       user.message = [];
