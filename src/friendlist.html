@@ -39,8 +39,8 @@
               <div class="col-sm-9">
                 <div class="rollup">Friend request <b>{{friendReq.username}}</b></div>
                 <div class="accept">
-                  <button type="button" class="btn btn-success btn-xs">Accept</button>
-                  <button type="button" class="btn btn-danger btn-xs">Reject</button>
+                  <button type="button" class="btn btn-success btn-xs" ng-click="accept(friendReq.relationshipid, true)">Accept</button>
+                  <button type="button" class="btn btn-danger btn-xs" ng-click="accept(friendReq.relationshipid, false)">Reject</button>
                 </div>
               </div>
             </div>

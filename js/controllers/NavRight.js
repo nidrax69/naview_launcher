@@ -35,6 +35,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
         //socketFactory.on('authenticated', function () {
 
           socketFactory.emit('user:login', auth.getUser());
+          socketFactory.emit('friend:getfriend');
         //});
         socketFactory.on('unauthorized', function(msg) {
           console.log("unauthorized: " + JSON.stringify(msg.data.message));
@@ -42,10 +43,21 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     });
 
     if (socketFactory.connected()) {
+      console.log('connected');
       socketFactory.emit('friend:get');
     }
 
     $scope.friendlist= [];
+
+    $scope.accept = function (relationshipid, response) {
+      var data = {
+        'relationshipid' : relationshipid,
+        'isaccept' : response
+      }
+      console.log(data);
+      socketFactory.emit("friend:response", data);
+      socketFactory.emit('friend:get');
+    }
 
     $scope.addFriend = function() {
       var data = {
@@ -62,12 +74,34 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
 
     socketFactory.on('friend:request', (user) => {
       console.log(user);
+      var push = 1;
+      for (let friend of $scope.friendsReqs) {
+        if (user.username === friend.username) {
+          push = 0;
+        }
+      }
+      if (push === 1) {
+        $scope.friendsReqs.push(user);
+      }
 
     });
 
     socketFactory.on('friend:add', (user) => {
       user.message = [];
       $scope.messageFriendError = "";
+      for (let id in $scope.friendlist)
+        if ($scope.friendlist[id]._id == user._id) {
+          $scope.friendlist[id] = user;
+          return ;
+        }
+      $scope.friendlist.push(user)
+    });
+
+    socketFactory.on('friend:getfriend', (user) => {
+      console.log(user);
+      user.message = [];
+      $scope.messageFriendError = "";
+
       for (let id in $scope.friendlist)
         if ($scope.friendlist[id]._id == user._id) {
           $scope.friendlist[id] = user;
