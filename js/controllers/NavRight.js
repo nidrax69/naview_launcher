@@ -56,7 +56,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       }
       console.log(data);
       socketFactory.emit("friend:response", data);
-      socketFactory.emit('friend:get');
+      socketFactory.emit('friend:getfriend');
     }
 
     $scope.addFriend = function() {
@@ -140,6 +140,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
           '_id' : message.pseudo
         });
         console.log(user_info[1]);
+        doNotify(message.pseudo, message.message);
         $scope.roundedNotif[user_info[0]._id] = true;
         $scope.numberNotif[user_info[0]._id]++;
       });
