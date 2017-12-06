@@ -35,8 +35,31 @@
             <img ng-hide="!wait" src="./images/default.svg" alt="waiting">
           </button>
         </form>
-        <button class="btn btn-primary" ng-click="FbAuth()"> <span class="fa fa-facebook"></span> Facebook</button>
-    		<button class="btn btn-info" ng-click="TwitterAuth()"> <span class="fa fa-twitter"></span> Twitter</button>
+        <div class="espacement">
+
+        </div>
+        <div class="signinInitialStep__divider">or</div>
+        <div class="espacement">
+
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <button class="btn btn-primary btn-block" ng-click="FbAuth()">
+              <div class="row">
+                <span class="fa fa-facebook text-center col-sm-2 logologin"></span>
+                <span class="col-sm-10 text-center fontlogin">Continue with Facebook</span>
+              </div>
+             </button>
+
+            <button class="btn btn-info btn-block" ng-click="TwitterAuth()">
+              <div class="row">
+                <span class="fa fa-twitter text-center col-sm-2 logologin"></span>
+                <span class="col-sm-10 text-center fontlogin">Continue with Twitter</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
 
         <div class="espacement"></div>
         <a class="notRegister" ng-if="form" href="#!/register">Not registered ?</a>

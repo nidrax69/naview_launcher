@@ -26,12 +26,29 @@
           <ul class="nav nav-tabs nav-justified">
             <li role="presentation" ng-click="swap(1);" ng-class="friendsActive"><a>Friends</a></li>
             <li role="presentation" ng-click="swap(2);" ng-class="newsActive"><a>News</a></li>
+            <li role="presentation" ng-click="openNotif();" class="notifs-on"><div class="text-center"><i class="fa fa-bell-o float-off notif-bell"></i> {{friendsReqs.length}}</div></li>
           </ul>
         </div>
-        <div class="espacement">
+        <div class="row noti-screen drop-content" ng-show="notifications">
+          <div class="col-sm-12 not-title">Notifications (<b>{{friendsReqs.length}}</b>)</div>
+          <div class="col-sm-12" ng-repeat="friendReq in friendsReqs track by $index">
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="notify-img"><img src="https://loremflickr.com/45/45" alt=""></div>
+              </div>
+              <div class="col-sm-9">
+                <div class="rollup">Friend request <b>{{friendReq.username}}</b></div>
+                <div class="accept">
+                  <button type="button" class="btn btn-success btn-xs" ng-click="accept(friendReq.relationshipid, true)">Accept</button>
+                  <button type="button" class="btn btn-danger btn-xs" ng-click="accept(friendReq.relationshipid, false)">Reject</button>
+                </div>
+              </div>
+            </div>
 
+
+          </div>
         </div>
-        <div class="row message-row" set-height ng-show="friends">
+        <div class="row" ng-show="friends">
           <div class="col-sm-12 friend" ng-repeat="friend in friendlist track by $index">
             <div class="row vertical-align" ng-if="friend._id != user._id" ng-click="open(friend._id);">
               <div class="col-sm-3">
@@ -50,21 +67,7 @@
               </div>
             </div>
           </div>
-          <div class="input-group">
-            <input placeholder="Add a friend..." ng-model="formData.username" ng-enter="addFriend()" class="form-control message-input input-friend" name="taname" />
-            <div class="input-group-btn">
-              <!-- Buttons -->
-              <button type="button" class="btn btn-primary btn-add" aria-label="Left Align" ng-click="addFriend()">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-              </button>
-            </div>
-          </div>
-          <div class="espacement-mini">
-
-          </div>
-          <p class="white text-center">{{ messageFriendError }}</p>
         </div>
-
         <div class="row" ng-show="news">
           <div class="col-sm-12 news">
             <span class="name">Math83829</span>
@@ -79,6 +82,15 @@
             <span class="status"> send you a friend request. Click to accept the invitation<i> 45 min ago</i></span>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="input-group bottom-add">
+      <input placeholder="Add a friend..." ng-model="formData.username" ng-enter="addFriend()" class="form-control message-input input-friend" name="taname" />
+      <div class="input-group-btn">
+        <!-- Buttons -->
+        <button type="button" class="btn btn-primary btn-add" aria-label="Left Align" ng-click="addFriend()">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
       </div>
     </div>
     <div class="settings-top">

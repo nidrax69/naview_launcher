@@ -18,11 +18,15 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     $scope.friendsActive = "active";
     $scope.messages = [];
     $scope.friends = true;
+    $scope.notifications = false;
     $scope.user = auth.getUser();
     $scope.messageToSend = [];
     $scope.roundedNotif = [];
     $scope.numberNotif = [];
     $scope.renewValue = [];
+    $scope.friendsReqs = [
+
+    ];
     $scope.messageList = [];
     $scope.formData = {};
 
@@ -31,6 +35,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
         //socketFactory.on('authenticated', function () {
 
           socketFactory.emit('user:login', auth.getUser());
+          socketFactory.emit('friend:getfriend');
         //});
         socketFactory.on('unauthorized', function(msg) {
           console.log("unauthorized: " + JSON.stringify(msg.data.message));
@@ -38,19 +43,65 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     });
 
     if (socketFactory.connected()) {
+      console.log('connected');
       socketFactory.emit('friend:get');
     }
 
     $scope.friendlist= [];
 
+    $scope.accept = function (relationshipid, response) {
+      var data = {
+        'relationshipid' : relationshipid,
+        'isaccept' : response
+      }
+      console.log(data);
+      socketFactory.emit("friend:response", data);
+      socketFactory.emit('friend:getfriend');
+    }
+
     $scope.addFriend = function() {
-      console.log($scope.formData.username);
-      socketFactory.emit('friend:add', $scope.formData.username);
+      var data = {
+        'username' : $scope.user.username,
+        'usernameasked' : $scope.formData.username
+      }
+      socketFactory.emit('friend:add', data);
     };
+
+    $scope.openNotif = function () {
+      $scope.notifications = $scope.notifications ? false : true;
+      $scope.friends = $scope.friends ? false : true;
+    }
+
+    socketFactory.on('friend:request', (user) => {
+      console.log(user);
+      var push = 1;
+      for (let friend of $scope.friendsReqs) {
+        if (user.username === friend.username) {
+          push = 0;
+        }
+      }
+      if (push === 1) {
+        $scope.friendsReqs.push(user);
+      }
+
+    });
 
     socketFactory.on('friend:add', (user) => {
       user.message = [];
       $scope.messageFriendError = "";
+      for (let id in $scope.friendlist)
+        if ($scope.friendlist[id]._id == user._id) {
+          $scope.friendlist[id] = user;
+          return ;
+        }
+      $scope.friendlist.push(user)
+    });
+
+    socketFactory.on('friend:getfriend', (user) => {
+      console.log(user);
+      user.message = [];
+      $scope.messageFriendError = "";
+
       for (let id in $scope.friendlist)
         if ($scope.friendlist[id]._id == user._id) {
           $scope.friendlist[id] = user;
@@ -89,6 +140,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
           '_id' : message.pseudo
         });
         console.log(user_info[1]);
+        doNotify(message.pseudo, message.message);
         $scope.roundedNotif[user_info[0]._id] = true;
         $scope.numberNotif[user_info[0]._id]++;
       });

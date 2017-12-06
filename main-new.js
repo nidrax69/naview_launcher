@@ -46,9 +46,6 @@ function createWindow () {
     mainWindow = null
   })
 
-  mainWindow.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures) => {
-console.log("el");
-  })
 }
 
 // This method will be called when Electron has finished

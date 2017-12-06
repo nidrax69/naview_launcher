@@ -27,14 +27,81 @@ function ConnectController($scope, $http, API, $location, jwtHelper, auth, $root
       $location.path("homepage");
     // }, 300);
   }
+  else {
+    console.log("Token expired");
+  }
   $scope.TwitterAuth = function() {
-    console.log('TwitterAuth');
-    $window.open(API + '/users/auth/twitter');
+    // console.log('TwitterAuth');
+    // $window.open(API + '/users/auth/twitter');
+    const remote = require('electron').remote;
+    const BrowserWindow = remote.BrowserWindow;
+    let response = "";
+    let mainWindow = BrowserWindow.getAllWindows();
+    var win = new BrowserWindow({
+        width: 800,
+        height: 600 ,
+        parent: mainWindow[0],
+        modal: true,
+        show: false,
+        webPreferences: {
+          nodeIntegration : false
+        }
+      });
+    win.loadURL(API + '/users/auth/twitter');
+    win.once('ready-to-show', () => {
+      win.show()
+    })
+
+    win.webContents.on('will-navigate', function (event, newUrl) {
+      win.webContents.on('dom-ready', function (event) {
+        win.webContents.executeJavaScript(`document.querySelector('pre').innerHTML`, function (result) {
+          response = JSON.parse(result);
+          console.log(response);
+          auth.saveToken(response.token);
+          win.close();
+          $location.path("homepage");
+          $scope.$apply();
+        })
+      });
+    });
   };
 
   $scope.FbAuth = function() {
-    console.log('FBAuth');
-    $window.open(API + '/users/auth/facebook');
+
+    const remote = require('electron').remote;
+    const BrowserWindow = remote.BrowserWindow;
+    let mainWindow = BrowserWindow.getAllWindows();
+    let response = "";
+    var win = new BrowserWindow({
+        width: 800,
+        height: 600 ,
+        parent: mainWindow[0],
+        modal: true,
+        show: false,
+        webPreferences: {
+          nodeIntegration : false
+        }
+      });
+    win.loadURL(API + '/users/auth/facebook');
+    win.once('ready-to-show', () => {
+      win.show()
+    })
+
+    win.webContents.on('will-navigate', function (event, newUrl) {
+      win.webContents.on('dom-ready', function (event) {
+        win.webContents.executeJavaScript(`document.querySelector('pre').innerHTML`, function (result) {
+          response = JSON.parse(result);
+          console.log(response);
+          auth.saveToken(response.token);
+          win.close();
+          $location.path("homepage");
+          $scope.$apply();
+        })
+      });
+    });
+
+    // console.log('FBAuth');
+    // $window.open(API + '/users/auth/facebook');
   };
   // log to app
   $scope.log = function () {

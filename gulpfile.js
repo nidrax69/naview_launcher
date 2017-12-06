@@ -22,5 +22,5 @@ gulp.task('serve', ['bower'], function () {
   gulp.watch('main-new.js', electron.restart);
 
   // Reload renderer process
-  gulp.watch(['js/**/*.js', 'index.html', 'src/**/*.html', 'css/**/*.css'], electron.restart);
+  gulp.watch(['js/**/*.js', 'index.html', 'src/**/*.html', 'css/**/*.css'], electron.reload);
 });
