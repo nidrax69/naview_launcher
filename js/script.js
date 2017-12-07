@@ -41,6 +41,21 @@ angular.module('naview', [
         }
       }
     })
+    .state('profile', {
+      templateUrl: './src/profile.html',
+      controller: 'ProfileController',
+      url: '/profile',
+      views: {
+        "connected" : {
+          templateUrl : './src/friendlist.html',
+          controller : 'NavRightController'
+        },
+        "" : {
+          templateUrl: './src/profile.html',
+          controller: 'ProfileController',
+        }
+      }
+    })
     .state('settings', {
       templateUrl: './src/settings.html',
       controller: 'SettingsController',

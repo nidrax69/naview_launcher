@@ -27,6 +27,10 @@ function HomePageController($scope, $http, API, $location, $rootScope, ModalServ
     $location.url("/room/favorites");
   }
 
+  $scope.profile = function () {
+    $location.url("/profile");
+  }
+
   $scope.createRoom = function () {
       ModalService.showModal({
         templateUrl: "src/createRoom.html",
