@@ -1,5 +1,5 @@
 {
-  "name": "naview-launcher",
+  "name": "Launcher-Naview",
   "version": "1.0.2",
   "description": "Naview-Launcher",
   "main": "main-new.js",
@@ -10,7 +10,8 @@
     "wiredep": "^4.0.0"
   },
   "devDependencies": {
-    "electron": "^1.6.11",
+    "electron": "^1.7.9",
+    "electron-builder": "^19.49.0",
     "electron-connect": "^0.6.1",
     "electron-cookies": "^1.1.0",
     "electron-packager": "^8.3.0",
@@ -20,8 +21,16 @@
     "gulp-run": "^1.7.1"
   },
   "scripts": {
-    "start": "electron main-new.js"
+    "start" : "electron main-new.js",
+    "pack" : "electron-builder",
+    "postinstall" : "electron-builder install-app-deps"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "build": {
+    "appId": "your.id",
+    "mac": {
+      "category": "your.app.category.type"
+    }
+  }
 }

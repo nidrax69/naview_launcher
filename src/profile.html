@@ -1,0 +1,28 @@
+<div class="row top-room absolute w80">
+  <div class="espacement"></div>
+  <div class="back-homepage absolute">
+    <button type="button" name="button" class="log-btn" ng-click="homepage()">Back to homepage</button>
+  </div>
+  <div class="col-sm-4 col-sm-offset-1">
+    <span class="recent-rooms">Profil</span>
+  </div>
+</div>
+
+<div class="row bottom-room absolute w100">
+  <div class="col-sm-6" >
+  	<h2 style="    color: #989898;">Choisir de ton avatar:</h2>
+    <div  ng-repeat="avatar in avatars"  class="selected row {{ (avatar.id == userAvatar) ? 'select' : ''}}"  ng-click="change(avatar.id)">
+      <div class="col-sm-4">
+        <img src="{{avatar.image}}" alt="default" class="img-responsive padding">
+      </div>
+      <div class="col-sm-8">
+        <h2 class="white">{{avatar.name}}</h2>
+        <span class="white">{{avatar.description}}
+        	<br>
+        	<span ng-if="avatar.id == userAvatar" class="selectionner">Actuel</span>
+        </span>
+
+      </div>
+    </div>
+  </div>
+</div>
