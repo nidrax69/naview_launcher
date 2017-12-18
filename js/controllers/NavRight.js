@@ -57,6 +57,11 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       console.log(data);
       socketFactory.emit("friend:response", data);
       socketFactory.emit('friend:getfriend');
+      for (i = 0; i < $scope.friendsReqs; ++i) {
+        if ($scope.friendsReqs[i].relationshipid === relationshipid) {
+            $scope.friendsReqs.splice(i--, 1);
+        }
+      }
     }
 
     $scope.addFriend = function() {
