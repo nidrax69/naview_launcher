@@ -9,7 +9,7 @@
 
 var app = angular.module('naview');
 
-function ConnectController($scope, $http, API, $location, jwtHelper, auth, $rootScope, $window, ModalService) {
+function ConnectController($scope, $http, API, $location, jwtHelper, auth, $rootScope, $window, ModalService, $state) {
   // variables init
   $scope.status = "Log in";
   $scope.wait = 0;
@@ -24,7 +24,7 @@ function ConnectController($scope, $http, API, $location, jwtHelper, auth, $root
     $scope.user = auth.getUser();
     $scope.wait = 1;
     // setTimeout(function (){
-      $location.path("homepage");
+      $state.transitionTo("homepage.content");
     // }, 300);
   }
   else {
@@ -59,7 +59,7 @@ function ConnectController($scope, $http, API, $location, jwtHelper, auth, $root
           console.log(response);
           auth.saveToken(response.token);
           win.close();
-          $location.path("homepage");
+          $state.transitionTo("homepage.content");
           $scope.$apply();
         })
       });
@@ -94,7 +94,7 @@ function ConnectController($scope, $http, API, $location, jwtHelper, auth, $root
           console.log(response);
           auth.saveToken(response.token);
           win.close();
-          $location.path("homepage");
+          $state.transitionTo("homepage.content");
           $scope.$apply();
         })
       });
@@ -124,7 +124,7 @@ function ConnectController($scope, $http, API, $location, jwtHelper, auth, $root
       // this callback will be called asynchronously
       // when the response is available
       auth.saveToken(response.data.token);
-      $location.path("homepage");
+      $state.transitionTo("homepage.content");
     }, function errorCallback(response) {
       // called asynchronously if an error occurs
       // or server returns response with an error status.
@@ -149,4 +149,4 @@ function ConnectController($scope, $http, API, $location, jwtHelper, auth, $root
   }
 };
 
-app.controller('ConnectController', ['$scope', '$http', 'API', '$location', 'jwtHelper', 'auth', '$rootScope', '$window' , "ModalService",  ConnectController]);
+app.controller('ConnectController', ['$scope', '$http', 'API', '$location', 'jwtHelper', 'auth', '$rootScope', '$window' , "ModalService", "$state",  ConnectController]);

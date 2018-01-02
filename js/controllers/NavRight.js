@@ -42,12 +42,14 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
         });
     });
 
+
+
+    $scope.friendlist= [];
+
     if (socketFactory.connected()) {
       console.log('connected');
       socketFactory.emit('friend:get');
     }
-
-    $scope.friendlist= [];
 
     $scope.accept = function (relationshipid, response) {
       var data = {

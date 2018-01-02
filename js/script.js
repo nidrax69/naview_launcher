@@ -20,37 +20,48 @@ angular.module('naview', [
     $stateProvider
     .state('main', {
       url: '/',
-      templateUrl: './src/connexion.html',
-      controller: 'ConnectController',
+      views: {
+        "main@" : {
+          templateUrl: './src/connexion.html',
+          controller: 'ConnectController',
+        }
+      }
     })
     .state('register', {
       url: '/register',
-      templateUrl: './src/register.html',
-      controller: 'RegisterController'
+      views: {
+        "main" : {
+          templateUrl: './src/register.html',
+          controller: 'RegisterController'
+        }
+      }
     })
     .state('homepage', {
       url: '/homepage',
       views: {
-        "connected" : {
+        "connected@" : {
           templateUrl : './src/friendlist.html',
           controller : 'NavRightController'
         },
-        "" : {
+        "main@" : {
           templateUrl : './src/homepage.html',
           controller: 'HomePageController',
         }
       }
     })
-    .state('profile', {
-      templateUrl: './src/profile.html',
-      controller: 'ProfileController',
-      url: '/profile',
+    .state('homepage.content', {
+      url: "/homepage/content",
       views: {
-        "connected" : {
-          templateUrl : './src/friendlist.html',
-          controller : 'NavRightController'
-        },
-        "" : {
+        "main@" : {
+          templateUrl : './src/homepage.html',
+          controller: 'HomePageController',
+        }
+      }
+    })
+    .state('homepage.profile', {
+      url : "/homepage/profile",
+      views: {
+        "main@" : {
           templateUrl: './src/profile.html',
           controller: 'ProfileController',
         }
@@ -71,27 +82,19 @@ angular.module('naview', [
         }
       }
     })
-    .state('roomjoin', {
-      url: '/room/join',
+    .state('homepage.roomjoin', {
+      url: '/homepage/room/join',
       views: {
-        "connected" : {
-          templateUrl : './src/friendlist.html',
-          controller : 'NavRightController'
-        },
-        "" : {
+        "main@" : {
           templateUrl: './src/joinRoom.html',
           controller: 'JoinRoomController',
         }
       }
     })
-    .state('roomfav', {
-      url: '/room/favorites',
+    .state('homepage.roomfav', {
+      url: '/homepage/room/favorites',
       views: {
-        "connected" : {
-          templateUrl : './src/friendlist.html',
-          controller : 'NavRightController'
-        },
-        "" : {
+        "main@" : {
           templateUrl: './src/favorites.html',
           controller: 'JoinRoomController',
         }

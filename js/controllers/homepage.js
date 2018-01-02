@@ -9,7 +9,7 @@
 
 var app = angular.module('naview');
 
-function HomePageController($scope, $http, API, $location, $rootScope, ModalService) {
+function HomePageController($scope, $http, API, $location, $rootScope, ModalService, $state) {
   $scope.showProfile = true;
   $scope.btsClass = "col-sm-4";
   $scope.noAnom = "";
@@ -20,15 +20,15 @@ function HomePageController($scope, $http, API, $location, $rootScope, ModalServ
   });
 
   $scope.joinRoom = function () {
-    $location.url("/room/join");
+    $state.transitionTo('homepage.roomjoin');
   }
 
   $scope.favoriteRoom = function () {
-    $location.url("/room/favorites");
+    $state.transitionTo('homepage.roomfav');
   }
 
   $scope.profile = function () {
-    $location.url("/profile");
+    $state.transitionTo('homepage.profile');
   }
 
   $scope.createRoom = function () {
@@ -44,9 +44,6 @@ function HomePageController($scope, $http, API, $location, $rootScope, ModalServ
         $scope.message = result ? "You said Yes" : "You said No";
       });
     });
-  }
-  $scope.favoritesRoom = function () {
-    $location.url("/room/favorites");
   }
 
   // hide content
@@ -65,4 +62,4 @@ function HomePageController($scope, $http, API, $location, $rootScope, ModalServ
   };
 };
 
-app.controller('HomePageController', ['$scope', '$http', 'API', '$location', '$rootScope', 'ModalService' , HomePageController]);
+app.controller('HomePageController', ['$scope', '$http', 'API', '$location', '$rootScope', 'ModalService', '$state' , HomePageController]);
