@@ -9,12 +9,22 @@
 
 var app = angular.module('naview');
 
-function ProfileController($scope, $http, API, $location) {
+function ProfileController($scope, $http, API, $location, auth) {
     console.log("test 2")
+    var user = auth.getUser();
 
-    // Ajax ici pour récupéré l'avatar choisi
-    $scope.userAvatar = 0;
-
+    $scope.userAvatar = -1;
+    $http({
+      method: 'GET',
+      url: API + '/users/profile',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((data) => {
+      console.log(data.data)
+      $scope.userAvatar = data.data.avatar || -1;
+    })
+    
     $scope.avatars = [{
       id: 0,
       image: 'images/avatar/android.jpg',
@@ -35,9 +45,22 @@ function ProfileController($scope, $http, API, $location) {
 
     $scope.change = function (id) {
       // request ajax poru changer en bdd
-      $scope.userAvatar = id;
+      $http({
+        method: 'PUT',
+        url: API + '/users/updateprofile',
+        data: {
+          avatar: ''+id
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(() => {
+        console.log('change')
+        $scope.userAvatar = id;
+      })
+
     }
 
 };
 
-app.controller('ProfileController', ['$scope', '$http', 'API', '$location' , ProfileController]);
+app.controller('ProfileController', ['$scope', '$http', 'API', '$location', 'auth' , ProfileController]);
