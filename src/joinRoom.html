@@ -1,21 +1,20 @@
-<div class="row top-room absolute w80">
-  <div class="espacement"></div>
-  <div class="back-homepage absolute">
-    <button type="button" name="button" class="log-btn" ng-click="homepage()">Back to homepage</button>
-  </div>
-  <div class="col-sm-5">
-    <div class="typeahead-demo">
-      <input type="text" class="index-search" placeholder="Search room" ng-model="search" ng-change="getRoom()" >
-      <i class="fa fa-search search-img"></i>
+<div class="row top-room absolute w100">
+  <div class="col-lg-10 col-md-8 col-sm-8">
+    <div class="espacement"></div>
+    <div class="back-homepage absolute">
+      <button type="button" name="button" class="log-btn" ng-click="homepage()">Back to homepage</button>
     </div>
-  </div>
-  <div class="col-sm-4 col-sm-offset-1">
-    <span class="recent-rooms">Recent Rooms</span>
+    <div class="col-sm-5">
+      <div class="typeahead-demo">
+        <input type="text" class="index-search" placeholder="Search room" ng-model="search" ng-change="getRoom()" >
+        <i class="fa fa-search search-img"></i>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="row bottom-room absolute w100">
-  <div class="col-sm-4" >
+  <div class="col-md-6 col-sm-8" >
     <div class="selected row" ng-repeat="room in rooms track by $index">
       <div class="col-sm-4">
         <img src="images/rooms/default.jpg" alt="default" class="img-responsive padding">

@@ -64,8 +64,27 @@
         <div class="espacement"></div>
         <a class="notRegister" ng-if="form" href="#!/register">Not registered ?</a>
         <span class="alert col-sm-12 text-center">{{response}}</span>
-        <a class="link" ng-if="error" href="#">Lost your password ?</a>
-        <div class="espacement"></div>
+        <a class="link" ng-if="error" ng-click="openmodal()" href="#">Lost your password ?</a>
+        <div class="remodal-bg">
+          <div class="remodal" data-remodal-id="modalLostPassword">
+            <button data-remodal-action="close" class="remodal-close"></button>
+            <h1>Reset Password</h1>
+            <p>
+              Email associated to your account :
+            </p>
+            <form name="resetpwdform" novalidate ng-submit="resetpwdform.$valid && resetpwd()">
+              <div class="form-group">
+                <input type="email" class="form-control pwdfor" ng-model="useremail" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              </div>
+              <button type="submit" class="remodal-confirm">OK</button>
+            </form>
+            <br>
+            <div class="alert2 alert-success" ng-if="lol">
+              {{lol}}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
