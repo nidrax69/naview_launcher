@@ -13,7 +13,7 @@
 
 <div class="row bottom-room absolute w100">
   <div class="col-sm-6" >
-  	<h2 style="    color: #989898;">Choisir de ton avatar:</h2>
+  	<h2 style="    color: #989898;">Choisir ton avatar:</h2>
     <div  ng-repeat="avatar in avatars"  class="selected row {{ (avatar.id == userAvatar) ? 'select' : ''}}"  ng-click="change(avatar.id)">
       <div class="col-sm-4">
         <img src="{{avatar.image}}" alt="default" class="img-responsive padding">
