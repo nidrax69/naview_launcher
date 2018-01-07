@@ -27,10 +27,16 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     $scope.friendsReqs = [
 
     ];
+    $scope.counter = 0;
     $scope.showDelete = false;
     $scope.showButtonDelete = true;
     $scope.messageList = [];
     $scope.formData = {};
+    var el = angular.element('.notification');
+    console.log(el);
+    $scope.$watch('friendsReqs', function(newValue, oldValue) {
+      $scope.counter = newValue;
+    });
 
     socketFactory.on('connect', function() {
         // socketFactory.emit('authenticate', {token: auth.getToken()}); //send the jwt
@@ -99,7 +105,6 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       if (push === 1) {
         $scope.friendsReqs.push(user);
       }
-
     });
 
     socketFactory.on('friend:add', (user) => {

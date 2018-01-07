@@ -59,7 +59,7 @@ h2, span {
 }
 
 .notifs-on {
-  background-color: white;
+  background-color: #3498db;
 }
 
 .delete-button {
@@ -108,6 +108,29 @@ h1 {
 
 .noti-screen {
   background-color: #fff;
+}
+
+/* Notifications */
+
+.notification {
+    display: block;
+    position: relative;
+    background: #3498db;
+    font-size: 1.3em;
+    color: white
+}
+
+.notification::before,
+.notification::after {
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.notification::before {
+    display: inline-block;
+    content: "\f0f3";
+    font-family: "FontAwesome";
+    transform-origin: top center;
 }
 
 .not-title {

@@ -25,7 +25,7 @@
         <div class="row">
           <ul class="nav nav-tabs nav-justified">
             <li role="presentation" ng-click="swap(1);" ng-class="friendsActive"><a>Friends</a></li>
-            <li role="presentation" ng-click="openNotif();" class="notifs-on"><div class="text-center"><i class="fa fa-bell-o float-off notif-bell"></i> {{friendsReqs.length}}</div></li>
+            <li role="presentation" ng-click="openNotif();" class="notifs-on"><div class="text-center"><div class="notification"> {{counter.length}}</div></div></li>
           </ul>
         </div>
         <div class="row noti-screen drop-content" ng-show="notifications">
