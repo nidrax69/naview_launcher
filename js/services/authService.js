@@ -80,7 +80,7 @@ function AuthService($window, jwtHelper) {
     self.isAuthed = function () {
          var token = self.getToken();
          // verification l'expiration de token
-        if (token) {
+        if (token && token != undefined) {
             var params = self.parseJwt(token);
             return Math.round(new Date().getTime() / 1000) <= params.exp;
         } else {

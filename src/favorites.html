@@ -1,15 +1,17 @@
-<div class="row top-room absolute w80">
-  <div class="espacement"></div>
-  <div class="back-homepage absolute">
-    <button type="button" name="button" class="log-btn" ng-click="homepage()">Back to homepage</button>
-  </div>
-  <div class="col-sm-4 col-sm-offset-1">
-    <span class="recent-rooms">Favorites</span>
+<div class="row top-room absolute w100">
+  <div class="col-lg-10 col-md-8 col-sm-8">
+    <div class="espacement"></div>
+    <div class="back-homepage absolute">
+      <button type="button" name="button" class="log-btn" ng-click="homepage()">Back to homepage</button>
+    </div>
+    <div class="col-sm-4 col-sm-offset-1">
+      <span class="recent-rooms">Favorites</span>
+    </div>
   </div>
 </div>
 
 <div class="row bottom-room absolute w100">
-  <div class="col-sm-4" >
+  <div class="col-md-6 col-sm-8" >
     <div class="selected row" ng-repeat="favori in fav track by $index">
       <div class="col-sm-4">
         <img src="images/rooms/default.jpg" alt="default" class="img-responsive padding">

@@ -27,8 +27,16 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     $scope.friendsReqs = [
 
     ];
+    $scope.counter = 0;
+    $scope.showDelete = false;
+    $scope.showButtonDelete = true;
     $scope.messageList = [];
     $scope.formData = {};
+    var el = angular.element('.notification');
+    console.log(el);
+    $scope.$watch('friendsReqs', function(newValue, oldValue) {
+      $scope.counter = newValue;
+    });
 
     socketFactory.on('connect', function() {
         // socketFactory.emit('authenticate', {token: auth.getToken()}); //send the jwt
@@ -42,12 +50,18 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
         });
     });
 
+    $scope.loglog = function () {
+      $scope.showButtonDelete = $scope.showButtonDelete ? false : true;
 
+    }
+
+    if (!auth.isAuthed()) {
+        $location.url("/");
+    }
 
     $scope.friendlist= [];
 
     if (socketFactory.connected()) {
-      console.log('connected');
       socketFactory.emit('friend:get');
     }
 
@@ -59,9 +73,11 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       console.log(data);
       socketFactory.emit("friend:response", data);
       socketFactory.emit('friend:getfriend');
-      for (i = 0; i < $scope.friendsReqs; ++i) {
+      for (var i = 0; i < $scope.friendsReqs.length; ++i) {
+        console.log($scope.friendsReqs[i]);
         if ($scope.friendsReqs[i].relationshipid === relationshipid) {
-            $scope.friendsReqs.splice(i--, 1);
+            console.log($scope.friendsReqs[i] + ' ejje');
+            $scope.friendsReqs.splice(i, 1);
         }
       }
     }
@@ -80,7 +96,6 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     }
 
     socketFactory.on('friend:request', (user) => {
-      console.log(user);
       var push = 1;
       for (let friend of $scope.friendsReqs) {
         if (user.username === friend.username) {
@@ -90,7 +105,6 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       if (push === 1) {
         $scope.friendsReqs.push(user);
       }
-
     });
 
     socketFactory.on('friend:add', (user) => {
@@ -105,7 +119,6 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     });
 
     socketFactory.on('friend:getfriend', (user) => {
-      console.log(user);
       user.message = [];
       $scope.messageFriendError = "";
 
@@ -125,10 +138,13 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     $scope.activeMessage = function(id) {
       $scope.messageList[id].active = !$scope.messageList[id].active;
     };
+    // Listening on delete users
+    socketFactory.on('friend:remove', function(users){
+      console.log(users);
+    });
 
     // Listening on the server to receive users connected
     socketFactory.on('send:users', function(users){
-      console.log(users);
       $scope.friendlist = users;
     });
 
@@ -216,6 +232,12 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       });
     }
 
+    $scope.remove = function (vald) {
+      $scope.friendlist.splice(vald,1);
+      $scope.messageList.splice(vald,1);
+      socketFactory.emit('friend:remove', { _id: vald });
+    }
+
     // Close message box for chat application
     $scope.close = function (val) {
       $scope.messageList.splice(val,1);
@@ -223,43 +245,46 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
 
     // Open message box for the chat application
     $scope.open = function (val) {
-      var promise = getInfos(val);
-      promise.then(function(user_info) {
-        var need_to_create = true;
-        if ($scope.messageList.length === 0) {
-          var object_message = {
-            _id: val,
-            active: true,
-            username: user_info[0].username,
-            message: user_info[0].message
-          }
-          $scope.messageList.push(object_message);
-          $scope.roundedNotif[val] = false;
-          $scope.renewValue[val] = 0;
-        }
-        else {
-          angular.forEach($scope.messageList, function(value, key) {
-            if (value._id === val) {
-              need_to_create = false;
-              $scope.messageList[key].active = !$scope.messageList[key].active;
-            }
-          });
-          if (need_to_create) {
-            var objet = {
+      console.log($scope.showButtonDelete);
+      if ($scope.showButtonDelete) {
+        var promise = getInfos(val);
+        promise.then(function(user_info) {
+          var need_to_create = true;
+          if ($scope.messageList.length === 0) {
+            var object_message = {
               _id: val,
               active: true,
               username: user_info[0].username,
               message: user_info[0].message
             }
-            $scope.messageList.push(objet);
-            objet = null;
+            $scope.messageList.push(object_message);
+            $scope.roundedNotif[val] = false;
+            $scope.renewValue[val] = 0;
           }
-          $scope.roundedNotif[val] = false;
-          $scope.renewValue[val] = 0;
-        }
-      }, function(reason) {
-        console.log('Failed: ' + reason);
-      });
+          else {
+            angular.forEach($scope.messageList, function(value, key) {
+              if (value._id === val) {
+                need_to_create = false;
+                $scope.messageList[key].active = !$scope.messageList[key].active;
+              }
+            });
+            if (need_to_create) {
+              var objet = {
+                _id: val,
+                active: true,
+                username: user_info[0].username,
+                message: user_info[0].message
+              }
+              $scope.messageList.push(objet);
+              objet = null;
+            }
+            $scope.roundedNotif[val] = false;
+            $scope.renewValue[val] = 0;
+          }
+        }, function(reason) {
+          console.log('Failed: ' + reason);
+        });
+      }
     }
 
     // swap between News or Chat function

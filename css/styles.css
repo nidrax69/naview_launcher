@@ -59,7 +59,13 @@ h2, span {
 }
 
 .notifs-on {
+  background-color: #3498db;
+}
+
+.delete-button {
+  border-radius: 50%;
   background-color: white;
+  padding: 10px;
 }
 
 .special2 {
@@ -102,6 +108,29 @@ h1 {
 
 .noti-screen {
   background-color: #fff;
+}
+
+/* Notifications */
+
+.notification {
+    display: block;
+    position: relative;
+    background: #3498db;
+    font-size: 1.3em;
+    color: white
+}
+
+.notification::before,
+.notification::after {
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.notification::before {
+    display: inline-block;
+    content: "\f0f3";
+    font-family: "FontAwesome";
+    transform-origin: top center;
 }
 
 .not-title {
@@ -284,6 +313,18 @@ img[src$=".gif"], img[src$=".png"] {
 
 textarea {
   resize: none;
+}
+
+.pwdfor {
+  color: #333 !important;
+  text-align: center;
+}
+
+.alert2 {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 
 .size-avatar {
@@ -663,7 +704,7 @@ form > .row > div.ng-hide {
 .bottom-room {
   height: 90%;
   overflow-y: scroll;
-  bottom: 15px;
+  bottom: 0px;
 }
 
 /*::-webkit-scrollbar-track
@@ -886,10 +927,28 @@ form > .row > div.ng-hide {
   float: left;
 }
 
+.remove {
+  background-image: url("../images/LOL.png");
+  background-size : 80% 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 30px;
+  width: 30px;
+  float: left;
+}
+
 .logout:hover, .settings-top:hover {
   background-color: #fff;
   border-radius: 50%;
   transition: all 0.3s;
+}
+
+.remove-top:hover {
+  background-color: #FF4136;
+  border-radius: 50%;
+  transition: all 0.3s;
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg)
 }
 
 .room {
@@ -934,6 +993,21 @@ video {
   border-radius: 50%;
   background-color: #333;
   transition: all 0.3s;
+}
+
+.remove-top {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  text-align: right;
+  z-index: 2;
+  border-radius: 50%;
+  background-color: #333;
+  transition: all 0.3s;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg)
 }
 
 .abso-center {
