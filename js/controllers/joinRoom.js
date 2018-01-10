@@ -48,7 +48,7 @@ function JoinRoomController($scope, $http, API, $location, auth, ModalService, C
     });
     }
     else {
-      var parameters = ["token=" + auth.getToken() + " " + "user_id=" + user._id + " " + "room_id=" + room._id];
+      var parameters = ["token=\"" + auth.getToken() + "\" id=\"" + user._id + "\" roomid=\"" + room._id + "\""];
       child(executablePath,  function(err, data) {
            console.log(err)
            console.log(data.toString());
