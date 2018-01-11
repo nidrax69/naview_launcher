@@ -48,10 +48,14 @@ function ConnectController($scope, $http, API, $location, jwtHelper, auth, $root
           nodeIntegration : false
         }
       });
+    win.webContents.session.clearCache(function(){
+    //some callback.
+    });
     win.loadURL(API + '/users/auth/twitter');
     win.once('ready-to-show', () => {
       win.show()
     })
+    //win.webContents.openDevTools();
 
     win.webContents.on('will-navigate', function (event, newUrl) {
       win.webContents.on('dom-ready', function (event) {
@@ -59,7 +63,7 @@ function ConnectController($scope, $http, API, $location, jwtHelper, auth, $root
           response = JSON.parse(result);
           console.log(response);
           auth.saveToken(response.token);
-          win.close();
+          //win.close();
           $state.transitionTo("homepage.content");
           $scope.$apply();
         })
@@ -84,6 +88,10 @@ function ConnectController($scope, $http, API, $location, jwtHelper, auth, $root
           nodeIntegration : false
         }
       });
+    win.webContents.session.clearCache(function(){
+    //some callback.
+    });
+    //win.webContents.openDevTools();
     win.loadURL(API + '/users/auth/facebook');
     win.once('ready-to-show', () => {
       win.show()

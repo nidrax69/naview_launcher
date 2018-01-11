@@ -155,6 +155,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
 
     // Listening on messages coming from the server
     socketFactory.on('send:message', function(message){
+      console.log(4);
       var promise = getInfosByPseudo(message.pseudo);
       promise.then(function(user_info) {
         $scope.friendlist[user_info[1]].message.push({
@@ -216,6 +217,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
 
     // Send a message to an user connected to the server
     $scope.sendMessage = function (val) {
+      console.log(3);
       var promise = getInfos(val);
       promise.then(function(user_info) {
         // if input message not empty
@@ -232,10 +234,9 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       });
     }
 
-    $scope.remove = function (vald) {
+    $scope.remove = function (vald, friendid) {
       $scope.friendlist.splice(vald,1);
-      $scope.messageList.splice(vald,1);
-      socketFactory.emit('friend:remove', { _id: vald });
+      socketFactory.emit('friend:remove', { _id: friendid });
     }
 
     // Close message box for chat application

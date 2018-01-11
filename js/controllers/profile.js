@@ -11,6 +11,7 @@ var app = angular.module('naview');
 
 function ProfileController($scope, $http, API, $location, auth) {
     console.log("test 2")
+    $scope.status = "Modifier";
     var user = auth.getUser();
 
     $scope.userAvatar = -1;
@@ -22,9 +23,12 @@ function ProfileController($scope, $http, API, $location, auth) {
       }
     }).then((data) => {
       console.log(data.data)
+      $scope.user = data.data;
       $scope.userAvatar = data.data.avatar || -1;
     })
-    
+
+
+
     $scope.avatars = [{
       id: 0,
       image: 'images/avatar/android.jpg',
@@ -48,16 +52,18 @@ function ProfileController($scope, $http, API, $location, auth) {
       $http({
         method: 'PUT',
         url: API + '/users/updateprofile',
-        data: {
-          avatar: ''+id
-        },
+        data: $scope.user,
         headers: {
           'Content-Type': 'application/json'
         }
-      }).then(() => {
+      }).then(function successCallback(response) {
         console.log('change')
         $scope.userAvatar = id;
-      })
+      }, function errorCallback(response) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+        $scope.error = response;
+      });
 
     }
 
