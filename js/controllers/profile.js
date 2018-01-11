@@ -47,6 +47,25 @@ function ProfileController($scope, $http, API, $location, auth) {
         $location.url("/homepage");
     };
 
+    $scope.changeAvatar = function (id) {
+      // request ajax poru changer en bdd
+      $http({
+        method: 'PUT',
+        url: API + '/users/updateprofile',
+        data: {
+          avatar: ''+id
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(() => {
+        console.log('change')
+        $scope.userAvatar = id;
+      })
+
+
+    }
+
     $scope.change = function (id) {
       // request ajax poru changer en bdd
       $http({
@@ -57,8 +76,7 @@ function ProfileController($scope, $http, API, $location, auth) {
           'Content-Type': 'application/json'
         }
       }).then(function successCallback(response) {
-        console.log('change')
-        $scope.userAvatar = id;
+
       }, function errorCallback(response) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.

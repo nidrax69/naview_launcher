@@ -63,7 +63,7 @@ function ConnectController($scope, $http, API, $location, jwtHelper, auth, $root
           response = JSON.parse(result);
           console.log(response);
           auth.saveToken(response.token);
-          //win.close();
+          win.close();
           $state.transitionTo("homepage.content");
           $scope.$apply();
         })
