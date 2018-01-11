@@ -68,6 +68,7 @@ function ProfileController($scope, $http, API, $location, auth) {
 
     $scope.change = function (id) {
       // request ajax poru changer en bdd
+      var inst = $('[data-remodal-id=modal]').remodal();
       $http({
         method: 'PUT',
         url: API + '/users/updateprofile',
@@ -76,7 +77,10 @@ function ProfileController($scope, $http, API, $location, auth) {
           'Content-Type': 'application/json'
         }
       }).then(function successCallback(response) {
-
+        inst.open();
+        auth.logout();
+        $location.url("/");
+        $window.location.reload();
       }, function errorCallback(response) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
