@@ -49,7 +49,7 @@
         </div>
         <div class="row" ng-show="friends">
           <div class="col-sm-12 friend" ng-repeat="friend in friendlist track by $index">
-            <div class="row vertical-align" ng-if="friend._id != user._id" ng-click="open(friend._id);" ng-mouseover="showDelete=true" ng-mouseleave="showDelete=false">
+            <div class="row vertical-align" ng-if="friend._id != user._id" ng-click="open(friend._id);" >
               <div class="col-sm-3">
                 <img src="images/users-logo/user.png" alt="avatar" class="size-avatar">
                 <div class="rounded-notif" ng-if="roundedNotif[friend._id] === true" ng-init="renewValue[friend._id] = 1; numberNotif[friend._id] = 1">
@@ -59,17 +59,23 @@
               <div class="col-sm-6">
                   <span class="friend-name">{{friend.username}}</span>
               </div>
-              <div class="col-sm-3" ng-hide="showDelete">
-                <div class="row" ng-if="friend.online">
-                  <span class="green">Online</span>
+              <div ng-mouseover="showDelete=true" ng-mouseleave="showDelete=false">
+                <div class="col-sm-3"  ng-hide="showDelete">
+                  <div class="row" ng-if="friend.online">
+                    <span class="green">Online</span>
+                  </div>
+                  <div class="row" ng-if="!friend.online">
+                    <span class="red">Offline</span>
+                  </div>
+                </div>
+                <div class="col-sm-3" ng-show="showDelete" ng-mouseover="loglog()" ng-mouseleave="loglog()">
+                  <div class="remove-top">
+                      <div class="remove" ng-click="remove($index, friend._id)" >
+                      </div>
+                  </div>
                 </div>
               </div>
-              <div class="col-sm-3" ng-show="showDelete" ng-mouseover="loglog()" ng-mouseleave="loglog()">
-                <div class="remove-top">
-                    <div class="remove" ng-click="remove($index, friend._id)" >
-                    </div>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>

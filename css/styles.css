@@ -445,6 +445,10 @@ i {
   color: green;
 }
 
+.red {
+  color: red;
+}
+
 .news {
   border-bottom: 1px solid #afa8a8;
   padding-bottom: 10px;
@@ -929,7 +933,7 @@ form > .row > div.ng-hide {
 
 .remove {
   background-image: url("../images/LOL.png");
-  background-size : 80% 80%;
+  background-size : 100%;
   background-repeat: no-repeat;
   background-position: center;
   height: 30px;

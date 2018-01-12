@@ -120,6 +120,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
 
     socketFactory.on('friend:getfriend', (user) => {
       user.message = [];
+      console.log('get:friend');
       $scope.messageFriendError = "";
 
       for (let id in $scope.friendlist)
@@ -139,8 +140,18 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
       $scope.messageList[id].active = !$scope.messageList[id].active;
     };
     // Listening on delete users
-    socketFactory.on('friend:remove', function(users){
-      console.log(users);
+    socketFactory.on('friend:remove', function(user){
+      for (let id in $scope.friendlist) {
+        if ($scope.friendlist[id]._id == user._id) {
+          $scope.friendlist.splice(id, 1)
+        }
+      }
+
+      angular.forEach($scope.messageList, function(value, key) {
+        if (value._id === user._id) {
+          $scope.messageList.splice(key, 1);
+        }
+      });
     });
 
     // Listening on the server to receive users connected
@@ -236,6 +247,13 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
 
     $scope.remove = function (vald, friendid) {
       $scope.friendlist.splice(vald,1);
+
+      angular.forEach($scope.messageList, function(value, key) {
+        if (value._id === friendid) {
+          $scope.messageList.splice(key, 1);
+        }
+      });
+      $scope.friendlist.splice(vald,1);
       socketFactory.emit('friend:remove', { _id: friendid });
     }
 
@@ -247,7 +265,6 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
     // Open message box for the chat application
     $scope.open = function (val) {
       console.log($scope.showButtonDelete);
-      if ($scope.showButtonDelete) {
         var promise = getInfos(val);
         promise.then(function(user_info) {
           var need_to_create = true;
@@ -285,7 +302,7 @@ function NavRightController($scope, $http, API, $location, auth, socketFactory, 
         }, function(reason) {
           console.log('Failed: ' + reason);
         });
-      }
+    
     }
 
     // swap between News or Chat function

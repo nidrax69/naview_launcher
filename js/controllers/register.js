@@ -34,6 +34,10 @@ function RegisterController($scope, $http, $location, API) {
     }, function errorCallback(response) {
       // called asynchronously if an error occurs
       // or server returns response with an error status.
+      console.log(response);
+      $scope.wait = 0;
+      $scope.status = "Register";
+      $scope.error = "Email or Username already in use or password incorrect";
     });
   }
 
